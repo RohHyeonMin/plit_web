@@ -10,13 +10,18 @@
 	<title> Main Page </title>
 </head>
 <body>
-<div id="toolbar" role="banner">
+	<div id="toolbar" role="banner">
 		<!-- float: right ( 윗줄 부터 가장 오른쪽으로 위치함 )-->
-		<img src="http://localhost:8080/plit/SignIn/logo.png/setting.png" class="menu">
-		<img src="http://localhost:8080/plit/SignIn/logo.png/friend_list.png" class="menu">
-		<img src="http://localhost:8080/plit/SignIn/logo.png/home.png" class="menu">
+		<img src="setting.png" class="menu">
+		<img src="friend_list.png" class="menu">
+		<img src="home.png" class="menu">
 		<span id="userId"> user id </span>
-		<img src="icon.jpg" id="http://localhost:8080/plit/SignIn/logo.png/userIcon"/>
+		<img src="icon.jpg" id="userIcon"/>
+		<!-- 검색창 -->
+   			<div class="searchBox">
+      			<input type="text" class="searchTerm" placeholder="Search...">
+      			<button type="submit" class="searchButton"> <img src="search.png" id ="searchImg"> </button>
+   			</div>
 	</div>
 	<div id="map"> MAP </div>
 	<div id="list">
@@ -24,7 +29,7 @@
 			<tr>
 				<td id="user">
 					<div>
-						<img src="http://localhost:8080/plit/SignIn/logo.png/icon.jpg" id="member_icon">
+						<img src="icon.jpg" id="member_icon">
 						<div> user id </div>
 					</div>				
 				</td>
@@ -41,8 +46,9 @@
 			</tr>	
 			<tr>
 				<td> yyyy-mm-dd </td>
+				<td class="bottom"> <img src="comment.png"> </td>
 				<td class="bottom"> 댓글 </td>
-				<td class="bottom"> <img src="http://localhost:8080/plit/SignIn/logo.png/heart.png"> </td>
+				<td class="bottom"> <img src="heart.png"> </td>
 				<td class="bottom"> 좋아요 </td>			
 			</tr>		
 		</table>
