@@ -1,4 +1,4 @@
-package user.action;
+package login.action;
 
 import static dao.DBConnection.getConnection;
 
@@ -8,12 +8,11 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import action.Action;
 import action.ActionForward;
-import user.db.UserBean;
-import user.db.UserDao;
+import login.db.UserBean;
+import login.db.UserDao;
 
 /* 회원가입  */
 public class JoinUserAction implements Action

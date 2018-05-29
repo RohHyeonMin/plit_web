@@ -1,4 +1,4 @@
-package user.action;
+package login.action;
 
 import static dao.DBConnection.getConnection;
 
@@ -11,8 +11,8 @@ import javax.servlet.http.HttpSession;
 
 import action.Action;
 import action.ActionForward;
-import user.db.UserBean;
-import user.db.UserDao;
+import login.db.UserBean;
+import login.db.UserDao;
 
 
 public class LoginUserAction implements Action

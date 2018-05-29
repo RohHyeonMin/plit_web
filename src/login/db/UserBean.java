@@ -1,4 +1,4 @@
-package user.db;
+package login.db;
 
 public class UserBean {
 

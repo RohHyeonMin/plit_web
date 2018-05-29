@@ -3,7 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<% String ip = "192.168.35.168"; %>
+	<% String ip = "localhost"; %>
 	<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 	<link rel="stylesheet" type="text/css" href="http://localhost:8080/plit/mainPage/mainPage_CSS.css">
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>

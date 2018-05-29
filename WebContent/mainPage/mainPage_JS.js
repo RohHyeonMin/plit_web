@@ -14,6 +14,24 @@ $(document).ready( function() {
 			paddingTop: 8
 		}, 500);
 	});
+
+	// searchBox 애니메이션
+	//TODO 검색창 클릭 시
+    $(".searchTerm").click(function(){
+    	$("#searchImg").slideToggle(200);
+    	$("#searchImg").attr('src','http://localhost:8080/plit/mainPage/close.png');
+    	$("#searchImg").slideToggle(200);
+    	
+    	$("#searchImg").on("click", function(){
+    		$(".searchTerm").val('');
+    	})
+    });
+    //TODO 검색창 클릭 해제 시
+    $(".searchTerm").focusout(function(){
+    	$("#searchImg").slideToggle(200);
+    	$("#searchImg").attr('src','http://localhost:8080/plit/mainPage/search.png');
+    	$("#searchImg").slideToggle(200);
+    });
 });
 
 // 창크기 변화 감지 ( 창 사이즈가 변할때 마다 호출 )
@@ -71,7 +89,25 @@ $( window ).resize(function() {
 	  		width: "90%"
 	  	},500);
 
-	  	$('.searchButton').off('mouseover');
+	  	$('.searchButton').off('click');
 	  	$('.searchTerm').off('focusout');
+
+	  	
+	  //TODO 검색창 클릭 시
+	    $(".searchTerm").click(function(){
+	    	$("#searchImg").slideToggle(200);
+	    	$("#searchImg").attr('src','http://localhost:8080/plit/mainPage/close.png');
+	    	$("#searchImg").slideToggle(200);
+	    	
+	    	$("#searchImg").on("click", function(){
+	    		$(".searchTerm").val('');
+	    	})
+	    });
+	  	//TODO 검색창 클릭 해제 시
+    	$(".searchTerm").focusout(function(){
+	    	$("#searchImg").slideToggle(200);
+	    	$("#searchImg").attr('src','http://localhost:8080/plit/mainPage/search.png');
+	    	$("#searchImg").slideToggle(200);
+	    });
 	}
 });

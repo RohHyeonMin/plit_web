@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
 import action.ActionForward;
-import user.action.JoinUserAction;
-import user.action.LoginUserAction;
+import login.action.JoinUserAction;
+import login.action.LoginUserAction;
 
 /* 로그인, 로그아웃, 회원 가입 */
 public class LoginController extends javax.servlet.http.HttpServlet 
