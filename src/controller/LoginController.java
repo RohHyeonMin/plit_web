@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -31,14 +30,25 @@ implements javax.servlet.Servlet{
 		{
 			forward = new ActionForward();
 			forward.setRedirect(false);
-			forward.setPath("./SignIn/SignIn.jsp");
+			forward.setPath("/SignIn/SignIn.jsp");
 		}
 		else if( command.equals("/LoginUserAction.me") )
 		{
 			action = new LoginUserAction();
 			try
 			{
-				forward = action.execute(request, response);		
+				forward = action.execute(request, response);
+				/*
+				if( forward != null )
+				{
+					PrintWriter out = response.getWriter();
+					out.println("<script>");
+					out.println("alert('회원가입 성공.');");
+					out.println("history.back();");
+					out.println("</script>");
+					out.close();
+				}*/
+				
 			}
 			catch(Exception e)
 			{
@@ -49,7 +59,7 @@ implements javax.servlet.Servlet{
 		{
 			forward = new ActionForward();
 			forward.setRedirect(false);
-			forward.setPath("./SignUp/SignUp.jsp");
+			forward.setPath("/SignUp/SignUp.jsp");
 		}
 		else if( command.equals("/JoinUserAction.me") )
 		{

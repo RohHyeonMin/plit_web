@@ -49,7 +49,7 @@ public class LoginUserAction implements Action
 	   		
 		//로그인 성공
 		session.setAttribute("id", user.getId());
-		forward.setPath("./mainPage.bo");
+		forward.setPath("/mainPage.bo");
 		return forward;
 	}
 }

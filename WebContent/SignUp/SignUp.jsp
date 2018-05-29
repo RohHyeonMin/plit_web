@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
+	<%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -15,7 +15,7 @@
 				
 				if( pw1 == pw2 )
 				{
-					$('form').attr("action", "http://localhost:8080/plit/JoinUserAction.me");
+					$('form').attr("action", "./JoinUserAction.me");
 				}
 				else
 				{
@@ -32,7 +32,7 @@
 		<div id="context"> SIGN UP WITH PLIT </div>
 		<div> <label> You can stick the post-it on place ! </label> </div>
 		<div> <label> Let's play XD </label> </div> <br>
-		<form>
+		<form method="post">
 		<table>
 			<tr>
                 <td> <input id="birth" type="text" placeholder="yyyymmdd" name="birth"></input> </td>

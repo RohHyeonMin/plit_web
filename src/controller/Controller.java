@@ -27,7 +27,7 @@ public class Controller extends javax.servlet.http.HttpServlet
 		{
 			forward = new ActionForward();
 			forward.setRedirect(false);
-			forward.setPath("./mainPage/mainPage.jsp");
+			forward.setPath("/mainPage/mainPage.jsp");
 		}
 		
 		/*********************************************************************/

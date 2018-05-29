@@ -3,19 +3,24 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+	<% String ip = "localhost"; %>
 	<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 	<title> SIGN IN FORM </title>
 	<link rel="stylesheet" type="text/css" 
-		href="http://localhost:8080/plit/SignIn/SignIn_CSS.css">
+		href="http://<%=ip%>:8080/plit/SignIn/SignIn_CSS.css">
 		
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<script>
 		$(document).ready(function(){
+			if( <%=request.getAttribute("join") != null%>)
+				{
+				alert('회원가입 성공')
+				}
 			$('#signIn').click(function(){
-				$('form').attr("action", "http://localhost:8080/plit/LoginUserAction.me");
+				$('form').attr("action", "http://<%=ip%>:8080/plit/LoginUserAction.me");
 			});
 			$('#signUp').click(function(){
-				$('form').attr("action", "http://localhost:8080/plit/SignUp.me");
+				$('form').attr("action", "http://<%=ip%>:8080/plit/SignUp.me");
 			});
 		})
 	</script>
@@ -23,7 +28,7 @@
 <body>
 <center>
 <div id="loginForm">
-	<div> <img id="logo" src="http://localhost:8080/plit/SignIn/logo.png"/> </div>
+	<div> <img id="logo" src="http://<%=ip%>:8080/plit/SignIn/logo.png"/> </div>
 	<div> <label id="label"> P L I T </label> </div>
 	<div> <label> You can stick the post-it on place ! </label> </div> <br>
 
@@ -42,6 +47,7 @@
     </table>
     </form>
 </div>
+<%= request.getAttribute("join") %>
 </center>
 </body>
 </html>

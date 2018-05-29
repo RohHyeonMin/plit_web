@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import action.Action;
 import action.ActionForward;
@@ -76,17 +77,12 @@ public class JoinUserAction implements Action
 		
 		//회원가입 성공.
 		System.out.println("회원가입 성공");
-		forward.setRedirect(true);
-		forward.setPath("./SignIn.me");
-		
-		PrintWriter out = response.getWriter();
-		out.println("<script>");
-		out.println("alert('회원가입 성공.');");
-		out.println("history.back();");
-		out.println("</script>");
-		out.close();
-		
 		System.out.println("회원가입한 아이디 : " + user.getId() );
+
+		request.setAttribute("join", "success");
+		forward.setRedirect(false);
+		forward.setPath("SignIn/SignIn.jsp");
+		
 		return forward;
 	}
 }
