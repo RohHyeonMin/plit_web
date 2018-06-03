@@ -1,4 +1,4 @@
-package login.db;
+package db;
 
 public class UserBean {
 
@@ -8,7 +8,8 @@ public class UserBean {
 	private String id;
 	private String pw;
     private String birth;
-     
+    private String message;
+    
     public String getId() {
 		return id;
 	}
@@ -26,5 +27,11 @@ public class UserBean {
 	}
 	public void setBirth(String birth) {
 		this.birth = birth;
+	}
+	public String getMessage() {
+		return message;
+	}
+	public void setMessage( String message ) {
+		this.message = message;
 	}
 }

@@ -1,10 +1,12 @@
-package login.db;
+package dao;
 
-import static dao.DBConnection.*;
+import static db.DBConnection.*;
 
 import java.sql.*;
 import java.util.ArrayList;
 import javax.sql.DataSource;
+
+import db.UserBean;
 
 public class UserDao 
 {
@@ -12,6 +14,7 @@ public class UserDao
 	PreparedStatement pstmt; // 한번의 쿼리문장 분석, 컴파일 후 캐시에 담아 재사용
 	ResultSet rs; // select쿼리 실행 시 executeQuery() 메서드를 사용하며, 실행 결과로 java.sql.ResultSet형으로 리턴
 	DataSource ds;
+	
 	public UserDao(Connection con) 
 	{
 		super();
@@ -27,7 +30,7 @@ public class UserDao
 		UserBean user = null;
 			
 		try{
-			String sql="select * from user where id=? and password=?"; // 사용자 정보 조회
+			String sql="select * from user_info where id=? and passwd=?"; // 사용자 정보 조회
 			pstmt = con.prepareStatement(sql); // 쿼리문 저장
 			pstmt.setString(1, id); // 첫번째 ?의 값 지정
 			pstmt.setString(2, pw); // 두번째 ?의 값 지정
@@ -38,7 +41,7 @@ public class UserDao
 				// TODO 조건에 일치하는 사용자 정보를 User 객체에 저장
 				user = new UserBean();
 				user.setId(rs.getString("id"));
-				user.setPw(rs.getString("password"));
+				user.setPw(rs.getString("passwd"));
 				user.setBirth(rs.getString(2));
 			}
 		}
@@ -57,8 +60,8 @@ public class UserDao
 	/* 사용자 정보 저장 : 회원 가입 ( INSERT ) */
 	public boolean joinUser(UserBean user) throws SQLException
 	{
-		// ( ?, ?, ? )  id, password, date_birth
-		String sql="INSERT INTO USER VALUES (?,?,?)";
+		// ( ?, ?, ? )  id, passwd, date_birth
+		String sql="INSERT INTO user_info(id, passwd, date_birth, date_member) VALUES (?,?,?,now() + 1)";
 		int count = 0;
 		try{
 			pstmt = con.prepareStatement(sql);
@@ -86,7 +89,7 @@ public class UserDao
 	/* 전체 사용자 정보 조회 */
 	public ArrayList getUserList() throws SQLException
 	{
-		String sql = "SELECT * FROM USER";
+		String sql = "SELECT * FROM user_info";
 		ArrayList<UserBean> userlist = new ArrayList();
 		
 		try{
@@ -97,7 +100,7 @@ public class UserDao
 			{
 				UserBean user = new UserBean();
 				user.setId(rs.getString("id"));
-				user.setPw(rs.getString("password"));
+				user.setPw(rs.getString("passwd"));
 				user.setBirth(rs.getString("date_birth"));		
 				userlist.add(user);
 			}
@@ -120,7 +123,7 @@ public class UserDao
 	public UserBean getUserInfo( String id ) throws SQLException
 	{
 		// 넘겨받은 해당 아이디의 사용자 정보 조회
-		String sql = "SELECT * FROM USER WHERE id = ?";
+		String sql = "SELECT * FROM user_info WHERE id = ?";
 		
 		try{
 			con = ds.getConnection();
@@ -131,7 +134,7 @@ public class UserDao
 			
 			UserBean user = new UserBean();
 			user.setId(rs.getString("id"));
-			user.setPw(rs.getString("password"));
+			user.setPw(rs.getString("passwd"));
 			user.setBirth(rs.getString("date_birth"));		
 
 			return user;
@@ -152,7 +155,7 @@ public class UserDao
 	/* 사용자 정보 삭제 ( 회원 탈퇴 ) */
 	public boolean deleteUserInfo(String id) throws SQLException
 	{
-		String sql="DELETE FROM USER WHERE id= ? ";
+		String sql="DELETE FROM user_info WHERE id= ? ";
 		boolean isSuccess = false;
 		int result1=0;
 		boolean result =false;

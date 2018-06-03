@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
 import action.ActionForward;
-import login.action.JoinUserAction;
-import login.action.LoginUserAction;
+import login.JoinUserAction;
+import login.LoginUserAction;
 
 /* 로그인, 로그아웃, 회원 가입 */
 public class LoginController extends javax.servlet.http.HttpServlet 
@@ -38,16 +38,6 @@ implements javax.servlet.Servlet{
 			try
 			{
 				forward = action.execute(request, response);
-				/*
-				if( forward != null )
-				{
-					PrintWriter out = response.getWriter();
-					out.println("<script>");
-					out.println("alert('회원가입 성공.');");
-					out.println("history.back();");
-					out.println("</script>");
-					out.close();
-				}*/
 				
 			}
 			catch(Exception e)

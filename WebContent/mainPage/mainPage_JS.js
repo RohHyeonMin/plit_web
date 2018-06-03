@@ -1,4 +1,16 @@
 $(document).ready( function() {
+	
+	// toolbar 태그 추가	
+	/*
+	$("#toolbar").append("<img src='http://localhost:8080/plit/mainPage/setting.png' class='menu'>");	
+	$("#toolbar").append("<img src='http://localhost:8080/plit/mainPage/home.png' class='menu'>");
+	$("#toolbar").append("<span id='userId'>" + userId  + "</span>");
+	$("#toolbar").append("<img src='http://localhost:8080/plit/mainPage/icon.jpg' id='userIcon'/>");
+	$("#toolbar").append("<div class='searchBox'> </div>");
+	$("#toolbar > .searchBox").append("<input type='text' class='searchTerm' placeholder='Search...'/>");
+	$("#toolbar > .searchBox").append("<button type='submit' class='searchButton'> <img src='http://localhost:8080/plit/mainPage/search.png' id ='searchImg'> </button>");
+	*/
+	
 	// 메뉴 아이콘 애니메이션
 	$('.menu').hover( function() {
 		$(this).stop().animate({
@@ -46,7 +58,10 @@ $( window ).resize(function() {
 	  	$('.searchTerm').stop().animate({
 	  		width: 0
 	  	},500);
-
+	  	
+	  	$('.searchTerm').off('click');
+	  	$('.searchTerm').off('focusout');
+	  	
 	  	// 검색 버튼 클릭시
 	  	$('.searchButton').click(function(){
 	  		// 작은 메뉴 아이콘, 사용자 정보 사라지기

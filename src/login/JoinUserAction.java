@@ -1,6 +1,6 @@
-package login.action;
+package login;
 
-import static dao.DBConnection.getConnection;
+import static db.DBConnection.getConnection;
 
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
 import action.ActionForward;
-import login.db.UserBean;
-import login.db.UserDao;
+import db.UserBean;
+import dao.UserDao;
 
 /* 회원가입  */
 public class JoinUserAction implements Action

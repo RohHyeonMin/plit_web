@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.*;
+import login.LoginUserAction;
+import mainPage.BoardListAction;
 
 public class Controller extends javax.servlet.http.HttpServlet 
 	implements javax.servlet.Servlet {
@@ -28,6 +30,19 @@ public class Controller extends javax.servlet.http.HttpServlet
 			forward = new ActionForward();
 			forward.setRedirect(false);
 			forward.setPath("/mainPage/mainPage.jsp");
+		}		
+		else if( command.equals("/mainPageAction.bo") )
+		{
+			action = new BoardListAction();
+			try
+			{
+				forward = action.execute(request, response);
+				
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
 		}
 		
 		/*********************************************************************/

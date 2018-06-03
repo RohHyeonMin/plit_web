@@ -1,6 +1,6 @@
-package login.action;
+package login;
 
-import static dao.DBConnection.getConnection;
+import static db.DBConnection.getConnection;
 
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -11,8 +11,8 @@ import javax.servlet.http.HttpSession;
 
 import action.Action;
 import action.ActionForward;
-import login.db.UserBean;
-import login.db.UserDao;
+import db.UserBean;
+import dao.UserDao;
 
 
 public class LoginUserAction implements Action
@@ -49,7 +49,7 @@ public class LoginUserAction implements Action
 	   		
 		//로그인 성공
 		session.setAttribute("id", user.getId());
-		forward.setPath("/mainPage.bo");
+		forward.setPath("/mainPageAction.bo");
 		return forward;
 	}
 }
