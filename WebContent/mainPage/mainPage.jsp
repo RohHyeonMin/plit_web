@@ -47,6 +47,7 @@
 		{
 			BoardBean bl = (BoardBean)boardList.get(i);
 			String time = bl.getDateBoard().substring(0, 10);
+			//hjkj
 	%>
 	<div id="item">
 		<table>
