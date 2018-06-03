@@ -13,7 +13,7 @@ public class LoadProfileImage implements Action
 	public ActionForward execute( HttpServletRequest request, HttpServletResponse response )
 	{
 		ActionForward forward = new ActionForward();
-		
+		// 주석주석
 		return null;
 	}
 
