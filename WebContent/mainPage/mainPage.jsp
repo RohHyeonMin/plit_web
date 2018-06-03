@@ -11,6 +11,7 @@
 		id = (String)session.getAttribute("id");
 	}
 	ArrayList boardList = (ArrayList) request.getAttribute("boardlist");
+	//hgj
 %>
 
 <html>
