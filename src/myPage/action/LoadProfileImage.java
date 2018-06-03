@@ -15,6 +15,7 @@ public class LoadProfileImage implements Action
 		ActionForward forward = new ActionForward();
 		// 주석주석
 		// 좀 바뀌라고
+		// again test
 		return null;
 	}
 
