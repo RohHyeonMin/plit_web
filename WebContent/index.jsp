@@ -8,6 +8,7 @@
 </head>
 <body>
 	<% response.sendRedirect("SignIn.me"); %>
+	<% //response.sendRedirect("MyPage.bo"); %>
 	<!-- 테스트임 -->
 	<!-- hi man :>S -->
 </body>
