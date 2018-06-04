@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import action.*;
 import login.LoginUserAction;
 import mainPage.BoardListAction;
+import myPage.action.MyPageAction;
 
 public class Controller extends javax.servlet.http.HttpServlet 
 	implements javax.servlet.Servlet {
@@ -34,15 +35,12 @@ public class Controller extends javax.servlet.http.HttpServlet
 		else if( command.equals("/mainPageAction.bo") )
 		{
 			action = new BoardListAction();
-			try
-			{
-				forward = action.execute(request, response);
-				
-			}
-			catch(Exception e)
-			{
-				e.printStackTrace();
-			}
+			forward = action.execute(request, response);
+		}		
+		else if( command.equals("/MyPage.bo") )
+		{
+			action = new MyPageAction();
+			forward = action.execute(request, response);
 		}
 		
 		/*********************************************************************/

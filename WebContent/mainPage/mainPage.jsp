@@ -43,11 +43,12 @@
 	<div id="list">
 	<!-- 게시판 부분   -->
 	<%
-		for( int i = 0; i < boardList.size(); i++ )
+		if( boardList != null)
 		{
-			BoardBean bl = (BoardBean)boardList.get(i);
-			String time = bl.getDateBoard().substring(0, 10);
-			//hjkj
+			for( int i = 0; i < boardList.size(); i++ )
+			{
+				BoardBean bl = (BoardBean)boardList.get(i);
+				String time = bl.getDateBoard().substring(0, 10);
 	%>
 	<div id="item">
 		<table>
@@ -73,7 +74,9 @@
 			</tr>		
 		</table>
 	</div>
-	<% } %>
+		<% 	  }
+		}
+		%>
 	
 	</div>
 </body>
