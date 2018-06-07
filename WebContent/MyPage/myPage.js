@@ -1,320 +1,60 @@
 
 window.onload = function()
 {
-    initProfileImage();
+    initProfileImage(); // 프로필사진 초기화
+    initStateMessage(); // 상태메세지 초기화
+    
+	var id = $("#toolbar > input").attr("value");
+	// toolbar íê·¸ ì¶ê°	
+	$("#toolbar").append("<img src='http://localhost:8080/plit/mainPage/setting.png' class='menu'>");	
+	$("#toolbar").append("<img src='http://localhost:8080/plit/mainPage/home.png' class='menu'>");
+	$("#toolbar").append("<span id='userId'>" + id  + "</span>");
+	$("#toolbar").append("<img src='http://localhost:8080/plit/mainPage/icon.jpg' id='userIcon'/>");
+	$("#userIcon").click( function()
+		{
+			window.location.href = "MyPage.bo"
+		}
+	);
+	$("#toolbar").append("<div class='searchBox'> </div>");
+	$("#toolbar > .searchBox").append("<input type='text' class='searchTerm' placeholder='Search...'/>");
+	$("#toolbar > .searchBox").append("<button type='submit' class='searchButton'> <img src='http://localhost:8080/plit/mainPage/search.png' id ='searchImg'> </button>");
+	
+	
+ // 메뉴 아이콘 애니메이션
+	$('.menu').hover( function() {
+		$(this).stop().animate({
+			width: 28,
+			height: 28,
+			paddingTop: 5
+		}, 500);
+			
+	}, function(){
+		$(this).stop().animate({
+			width: 24,
+			height: 24,
+			paddingTop: 8
+		}, 500);
+	});
+
+	// searchBox 애니메이션
+	//TODO 검색창 클릭 시
+    $(".searchTerm").click(function(){
+    	$("#searchImg").slideToggle(200);
+    	$("#searchImg").attr('src','http://localhost:8080/plit/mainPage/close.png');
+    	$("#searchImg").slideToggle(200);
+    	
+    	$("#searchImg").on("click", function(){
+    		$(".searchTerm").val('');
+    	})
+    });
+    //TODO 검색창 클릭 해제 시
+    $(".searchTerm").focusout(function(){
+    	$("#searchImg").slideToggle(200);
+    	$("#searchImg").attr('src','http://localhost:8080/plit/mainPage/search.png');
+    	$("#searchImg").slideToggle(200);
+    });
 }
 
-function initProfileImage()
-{
-    var userImage = document.getElementById("user_image");
-    var imageBg; // 검정 백그라운드
-    var uploadIcon; // 검정 백그라운드 위에 사진로드 아이콘
-    var fileLoad; // 실제 file 로 동작하는 input 태그
-            
-    var enter = false; // 마우스 in Image?
-    var fadeoutId = 0; // 페이드아웃 진행중?
-    var fadeinId = 0; // 페이드인 진행중?
-    var alpha = 0.0; // 검정 백그라운드 알파 값
-    const maxAlpha = 0.5;
-    
-    var enterLoad = false; // 마우스 in uploadIcon 
-    var showingImage = false; // 프로필 사진 클릭 시 확대상태인가?
-    var showingImageExit = false; // 확대사진 보고 x를 눌렀는가?
-    
-    // 임시 image url 변수 ( 실제로는 DB에서 url 받아서 여기 넣을거임 )
-    var imageUrl = "MyPage/test.jpg";
-    userImage.style.backgroundImage = "url('" + imageUrl + "')"; // 프로필사진 등
-            
-    /************************************************
-        사진위에 마우스 올리면
-    *************************************************/
-    userImage.addEventListener( "mouseenter", function()
-    {        
-        enter = true;
-        showingImageExit = false;
-        
-        if( !userImage.firstChild ) // div없을때만
-        {
-            this.innerHTML = "<div id='image_background'>" + "</div>" 
-                            + "<input type='file' accept='image/*' style='display:none'>"  // 속성으로 multiple을 넣으면 여러개 가져올 수 있음.
-                            + "<div id='up_icon'>" + "</div>"; // 사진 등록아이콘 추가
-           imageBg = document.querySelector("#image_background");
-            uploadIcon = document.querySelector("#up_icon");
-            fileLoad = document.querySelector("#user_image > input"); // file 불러오는 input 태그
-
-            /** 검정배경 css 적용 **/
-            imageBg.style.width = "100%";
-            imageBg.style.height = this.clientHeight + "px";
-            imageBg.style.backgroundColor = "rgba(0,0,0," + alpha + ")";
-            imageBg.style.borderRadius = "7px";
-            
-            /** 사진업로드 아이콘 css 적용 **/
-            uploadIcon.style.width = "30px";
-            uploadIcon.style.height = "30px";
-            uploadIcon.style.backgroundImage = "url('MyPage/picture.png')";
-            uploadIcon.style.backgroundRepeat = "no-repeat";
-            uploadIcon.style.backgroundSize = "100%";
-            uploadIcon.style.position = "absolute";
-            uploadIcon.style.right = "5px";
-            uploadIcon.style.bottom = "5px";
-            uploadIcon.style.opacity = "0";
-            
-            // 사진업로드 아이콘 마우스 상효작용
-            uploadIcon.onmouseover = function()
-            {
-                this.style.opacity = "1";
-                enterLoad = true;
-            }
-            uploadIcon.onmouseout = function()
-            {
-                this.style.opacity = "" + maxAlpha;
-                enterLoad = false;
-            }
-            
-            // 이미지 클릭 시 input type="file" 태그가 클릭되도록 함
-            uploadIcon.onclick = function()
-            {
-                fileLoad.click();
-            }
-            
-            /************************************************
-                사용자가 변경할 이미지파일을 선택 시 이벤트 호출
-            *************************************************/
-            fileLoad.onchange = function()
-            {
-                var fileList = this.files; // input type='file' 에서 사용자가 선택한 이미지들 가져오기
-                
-                var fileReader = new FileReader();
-                if( !fileReader ) // 만약 file을 가져오지 못했다면
-                {
-                    return false;
-                }
-                fileReader.readAsDataURL( fileList[0] ); // 한개 선택할꺼니 0번째 url로 
-                
-                // 사용자 선택한 이미지 로드 시
-                fileReader.onload = function ()
-                {
-                    userImage.style.backgroundImage = "url(" + fileReader.result + ")"; 
-                    // 먼저 사용자화면에 등록, 이 파일은 form 태그로 인해 서버 서블릿을 통해 서버로 전송될 것이다.
-                    imageUrl = fileReader.result;
-                    
-                }
-            }
-        }
-        /** css background-color 페이드 아웃 애니메이션 **/
-        if( fadeoutId == 0 && !showingImage ) // 하나의 인터벌만 생성되도록
-            fadeoutId = setInterval( fadeout, 5 );
-        
-        /*******************
-            페이드 아웃
-        ********************/
-        function fadeout()
-        {       
-            if( !showingImageExit )
-                {
-            if( !enter )
-            {
-                clearInterval( fadeoutId );
-                fadeoutId = 0;
-                return;
-            }
-            
-            if( fadeinId == 0)
-            {
-
-                if( alpha <= maxAlpha )
-                {
-                    imageBg.style.backgroundColor = "rgba(0, 0, 0, " + alpha + ")";
-                    if( !enterLoad )
-                        uploadIcon.style.opacity = "" + alpha;
-                    alpha += 0.01;
-                }
-                else
-                {
-                    clearInterval( fadeoutId ); // alpha 0.7 까지 갔으면 clear
-                    fadeoutId = 0;
-                    return;
-                }
-            }
-                }
-        }
-
-    } );
-                
-    /************************************************
-        사진위에서 마우스가 나가면
-    *************************************************/
-    userImage.addEventListener( "mouseleave", function()
-    {
-        enter = false;
-        
-        imageBg = this.firstChild;
-        /** css background-color 애니메이션 **/
-        if( fadeinId == 0 && !showingImage )
-            fadeinId = setInterval( fadein, 5 );
-        
-        /*******************
-            페이드 인
-        ********************/
-        function fadein()
-        {               
-            if( !showingImageExit )
-                { 
-            if( !showingImage ) // 이미지 확대해서 보고 있으면 진행안함
-            {
-                if( enter )
-                {
-                    clearInterval( fadeinId );
-                    fadeinId = 0;
-                    return;
-                }
-
-                if( fadeoutId == 0 )
-                {
-                    if( alpha >= 0.0)
-                    {
-                        imageBg.style.backgroundColor = "rgba(0, 0, 0, " + alpha + ")";
-                        uploadIcon.style.opacity = "" + alpha;
-                        alpha -= 0.01;
-                    }
-                    else
-                    {
-                        // 자식노드 해제 ( imageBg, upload (input 태그), uploadIcon )
-                        if( imageBg )
-                        {
-                            userImage.removeChild( imageBg );
-                            imageBg = undefined;
-                        }
-                        if( fileLoad )
-                        {
-                            userImage.removeChild( fileLoad );
-                            fileLoad = undefined;
-                        }
-                        if( uploadIcon )
-                        {
-                            userImage.removeChild( uploadIcon );
-                            uploadIcon = undefined;
-                        } 
-
-                        clearInterval( fadeinId );
-                        fadeinId = 0;
-                        return;
-                    } 
-                }
-            }
-            }
-        }
-    } );
-    
-    /************************************************
-        사진 클릭 시 확대
-    *************************************************/
-    userImage.addEventListener( "click", function()
-    {
-        if( !enterLoad && imageUrl && !showingImageExit ) // 로드아이콘에서 누르면 동작 되지 않도록, x아이콘 눌렀으면 동작 안되도록
-        {
-            showingImage = true;
-            
-            /** 프로필 이미지 불러오면 **/
-            var profileImage = new Image();
-            profileImage.src = imageUrl;
-            
-            profileImage.onload = function()
-            {
-                userImage.innerHTML += "<div id='show_image_background'>" 
-                                        + "<div id='show_image_box'>" 
-                                            + "<div id='show_image'>" 
-                                                + "<div id='show_image_xbutton'>" + "</div>" 
-                                            + "</div>" 
-                                        + "</div>"
-                                    + "</div>" ;
-
-                var showImageBg = document.getElementById("show_image_background");
-                var showImageBox = document.getElementById("show_image_box");
-                var showImage = document.getElementById("show_image");
-                var showImageXButton = document.getElementById("show_image_xbutton");
-
-                /** 검정배경 css 적용 **/
-                showImageBg.style.position = "fixed";
-                showImageBg.style.width = "100%";
-                showImageBg.style.height = "100%";
-                showImageBg.style.backgroundColor = "rgba(0,0,0," + (maxAlpha + 0.35) + ")";
-                showImageBg.style.top = "0px";
-                showImageBg.style.left = "0px";
-                
-                /** 검정배경 css 적용 **/
-                showImageBox.style.position = "relative";
-                showImageBox.style.width = "50%";
-                showImageBox.style.height = "70%";
-                var valueOfMargin = ((showImageBg.clientHeight - showImageBox.clientHeight)/2); // 부모 height, 자기자신 height 계산하여 margin 구하기
-                showImageBox.style.margin = ( ( valueOfMargin > 0 ) ? valueOfMargin : valueOfMargin * -1 ) + "px auto"; // -가 나오지 않도록
-
-                /** 확대해서 보여줄 이미지 **/
-                showImage.style.position = "absolute";
-                showImage.style.width = "100%"
-                showImage.style.height = "100%";
-                showImage.style.backgroundImage = "url(" + imageUrl + ")";
-                showImage.style.backgroundSize = "contain"; // 가로를 기준으로 세로비율이 결정되도록
-                showImage.style.backgroundRepeat = "no-repeat";
-                showImage.style.backgroundPosition = "center center"; // 정중앙에 위치하도록
-                showImage.style.margin = "0 auto";
-                
-                /** 종료할 x 버튼 **/
-                showImageXButton.style.position = "absolute";
-                showImageXButton.style.width = "25px";
-                showImageXButton.style.height = "25px";
-                showImageXButton.style.top = "0px";
-                showImageXButton.style.right = "-30px";
-                showImageXButton.style.backgroundImage = "url('MyPage/xbotton.png')";
-                showImageXButton.style.backgroundSize = "contain"; // 가로를 기준으로 세로비율이 결정되도록
-                showImageXButton.style.backgroundRepeat = "no-repeat";
-                showImageXButton.style.backgroundPosition = "center center"; // 정중앙에 위치하도록
-                showImageXButton.style.opacity = "0.7";
-                
-                showImageXButton.addEventListener( "mouseover", function()
-                {
-                    this.style.opacity = "1";
-                } );
-                showImageXButton.addEventListener( "mouseleave", function()
-                {
-                    this.style.opacity = "0.7";
-                } );
-                showImageXButton.addEventListener( "click", function()
-                {
-                    var size = userImage.childElementCount;
-                    for( var i = 0; i < size; i ++ )
-                    {
-                        userImage.removeChild( userImage.childNodes[0]) ;
-                    }
-                    // 자식노드 해제
-                    imageBg = undefined;
-                    fileLoad = undefined;
-                    uploadIcon = undefined;
-                    showImageBg = undefined;
-                    
-                    /** 사진 확대보기 하면 fadeout, fadein interval이 동작안되기 때문에 삭제해주기 **/
-                    clearInterval( fadeoutId );
-                    fadeoutId = 0;
-                    clearInterval( fadeinId );
-                    fadeinId = 0;
-                    
-                    alpha = 0.0; // 알파값도 초기화
-                    
-                    showingImageExit = true;
-                    showingImage = false;
-                } );
-            }
-        }
-    } );
-    
-    /************************************************
-        브라우저 resize 시
-    *************************************************/
-    window.addEventListener( "resize", function()
-    {
-        resizeShowImage( document.getElementById("show_image_background"), document.getElementById("show_image_box") );
-    } );
-}
 
 function resizeShowImage( parent, child ) // 부모 height, 자식 height로 자식 vertical margin 조정
 {
@@ -325,3 +65,84 @@ function resizeShowImage( parent, child ) // 부모 height, 자식 height로 자
         child.style.margin = ( ( valueOfMargin > 0 ) ? valueOfMargin : valueOfMargin * -1 ) + "px auto"; // -가 나오지 않도록
     }
 }
+
+//창크기 변화 감지 ( 창 사이즈가 변할때 마다 호출 )
+$( window ).resize(function() {
+
+	if( $(window).width() <= 600 )
+	{	
+		// 맵 사라지기
+	  	$('#map').fadeOut();
+
+	  	// 검색 입력창 사라지기
+	  	$('.searchTerm').stop().animate({
+	  		width: 0
+	  	},500);
+	  	
+	  	$('.searchTerm').off('click');
+	  	$('.searchTerm').off('focusout');
+	  	
+	  	// 검색 버튼 클릭시
+	  	$('.searchButton').click(function(){
+	  		// 작은 메뉴 아이콘, 사용자 정보 사라지기
+	  		$('.menu').css('display','none');
+	  		$('#userId').css('display','none');
+	  		$('#userIcon').css('display','none');
+
+	  		$('.searchBox').css('width', '98%');
+	  		$('.searchBox').css('margin-left', '1%');
+			$('.searchBox').css('margin-right', '1%');
+	  		$('.searchTerm').stop().animate({
+	  			width: "90%"
+	  		},500);
+	  	});
+
+	  	$('.searchTerm').focusout(function(){
+	  		$('.menu').css('display','block');
+	  		$('#userId').css('display','block');
+	  		$('#userIcon').css('display','block');
+
+			$('.searchBox').css('width', '15%');
+			$('.searchBox').css('margin-right', '40px');
+	  		$('.searchTerm').stop().animate({
+	  		width: 0
+	  	},500);
+	  	});
+	}
+	else
+	{
+		$('#map').fadeIn();
+		
+		// 검색 입력창 나타내기
+		$('.menu').css('display','block');
+	  	$('#userId').css('display','block');
+	  	$('#userIcon').css('display','block');
+
+		$('.searchBox').css('width', '15%');
+		$('.searchBox').css('margin-right', '40px');
+	  	$('.searchTerm').stop().animate({
+	  		width: "90%"
+	  	},500);
+
+	  	$('.searchButton').off('click');
+	  	$('.searchTerm').off('focusout');
+
+	  	
+	  //TODO 검색창 클릭 시
+	    $(".searchTerm").click(function(){
+	    	$("#searchImg").slideToggle(200);
+	    	$("#searchImg").attr('src','http://localhost:8080/plit/mainPage/close.png');
+	    	$("#searchImg").slideToggle(200);
+	    	
+	    	$("#searchImg").on("click", function(){
+	    		$(".searchTerm").val('');
+	    	})
+	    });
+	  	//TODO 검색창 클릭 해제 시
+    	$(".searchTerm").focusout(function(){
+	    	$("#searchImg").slideToggle(200);
+	    	$("#searchImg").attr('src','http://localhost:8080/plit/mainPage/search.png');
+	    	$("#searchImg").slideToggle(200);
+	    });
+	}
+});
