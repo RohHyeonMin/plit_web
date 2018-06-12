@@ -24,5 +24,15 @@
   <servlet-name>LoginController</servlet-name>
   <url-pattern>*.me</url-pattern>
   </servlet-mapping>
-
+  
+  <servlet>
+  <servlet-name>DataController</servlet-name>
+  <servlet-class>controller.DataController</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  <servlet-name>DataController</servlet-name>
+  <url-pattern>*.data</url-pattern>
+  </servlet-mapping>
+  
 </web-app>

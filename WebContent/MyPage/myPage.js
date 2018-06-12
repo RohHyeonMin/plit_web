@@ -3,13 +3,14 @@ window.onload = function()
 {
     initProfileImage(); // 프로필사진 초기화
     initStateMessage(); // 상태메세지 초기화
+    initFriendList();
     
 	var id = $("#toolbar > input").attr("value");
 	// toolbar íê·¸ ì¶ê°	
-	$("#toolbar").append("<img src='http://localhost:8080/plit/mainPage/setting.png' class='menu'>");	
-	$("#toolbar").append("<img src='http://localhost:8080/plit/mainPage/home.png' class='menu'>");
+	$("#toolbar").append("<img src='mainPage/setting.png' class='menu'>");	
+	$("#toolbar").append("<img src='mainPage/home.png' class='menu'>");
 	$("#toolbar").append("<span id='userId'>" + id  + "</span>");
-	$("#toolbar").append("<img src='http://localhost:8080/plit/mainPage/icon.jpg' id='userIcon'/>");
+	$("#toolbar").append("<img src='mainPage/icon.jpg' id='userIcon'/>");
 	$("#userIcon").click( function()
 		{
 			window.location.href = "MyPage.bo"
@@ -17,7 +18,7 @@ window.onload = function()
 	);
 	$("#toolbar").append("<div class='searchBox'> </div>");
 	$("#toolbar > .searchBox").append("<input type='text' class='searchTerm' placeholder='Search...'/>");
-	$("#toolbar > .searchBox").append("<button type='submit' class='searchButton'> <img src='http://localhost:8080/plit/mainPage/search.png' id ='searchImg'> </button>");
+	$("#toolbar > .searchBox").append("<button type='submit' class='searchButton'> <img src='mainPage/search.png' id ='searchImg'> </button>");
 	
 	
  // 메뉴 아이콘 애니메이션
@@ -40,7 +41,7 @@ window.onload = function()
 	//TODO 검색창 클릭 시
     $(".searchTerm").click(function(){
     	$("#searchImg").slideToggle(200);
-    	$("#searchImg").attr('src','http://localhost:8080/plit/mainPage/close.png');
+    	$("#searchImg").attr('src','mainPage/close.png');
     	$("#searchImg").slideToggle(200);
     	
     	$("#searchImg").on("click", function(){
@@ -50,13 +51,13 @@ window.onload = function()
     //TODO 검색창 클릭 해제 시
     $(".searchTerm").focusout(function(){
     	$("#searchImg").slideToggle(200);
-    	$("#searchImg").attr('src','http://localhost:8080/plit/mainPage/search.png');
+    	$("#searchImg").attr('src','mainPage/search.png');
     	$("#searchImg").slideToggle(200);
     });
 }
 
-
-function resizeShowImage( parent, child ) // 부모 height, 자식 height로 자식 vertical margin 조정
+// 부모 height, 자식 height로 자식 vertical margin 조정
+function resizeShowImage( parent, child )
 {
     if( parent != undefined && child != undefined ) // 사진 확대 중이면 
     {

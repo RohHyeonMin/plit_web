@@ -23,14 +23,15 @@ public class LoginUserAction implements Action
 
 		try
 		{
+			request.setCharacterEncoding("UTF-8");
 			HttpSession session = request.getSession();
 			ActionForward forward = new ActionForward();
 			Connection con = getConnection();
 			
 			UserDao userDao = new UserDao(con);
 			UserBean user = new UserBean();   		
-		   		
-			// SignIn.jspÀÇ formÅÂ±×ÀÇ µ¥ÀÌÅÍ °¡Á®¿Í ÀúÀå
+		   	
+			// SignIn.jspï¿½ï¿½ formï¿½Â±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			user.setId(request.getParameter("id"));
 			user.setPw(request.getParameter("pw"));
 	 
@@ -38,11 +39,11 @@ public class LoginUserAction implements Action
 		   		
 			if( user == null )
 			{
-				// TODO ·Î±×ÀÎ ½ÇÆÐ ( °æ°íÃ¢ )
-				response.setContentType("text/html;charset=euc-kr");
+				// TODO ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ( ï¿½ï¿½ï¿½Ã¢ )
+				response.setContentType("text/html;charset=UTF-8");
 				PrintWriter out=response.getWriter();
 				out.println("<script>");
-				out.println("alert('¾ÆÀÌµð, ºñ¹Ð¹øÈ£ È®ÀÎ ¶Ç´Â È¸¿ø°¡ÀÔ ÇØÁÖ½Ã±â ¹Ù¶ø´Ï´Ù.');");
+				out.println("alert('ï¿½ï¿½ï¿½Ìµï¿½, ï¿½ï¿½Ð¹ï¿½È£ È®ï¿½ï¿½ ï¿½Ç´ï¿½ È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ö½Ã±ï¿½ ï¿½Ù¶ï¿½ï¿½Ï´ï¿½.');");
 				out.println("location.href='./SignIn.me';");
 				out.println("</script>");
 				out.close();
@@ -50,7 +51,7 @@ public class LoginUserAction implements Action
 				return null;
 			}
 		   		
-			//·Î±×ÀÎ ¼º°ø
+			//ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			session.setAttribute("id", user.getId());
 			forward.setPath("/mainPageAction.bo");
 			
