@@ -41,3 +41,4 @@
 <script src="MyPage/myPage.js"></script>
 <script src="MyPage/ProfileImage.js"></script>
 <script src="MyPage/StateMessage.js"></script>
+<script src="MyPage/FriendList.js"></script>

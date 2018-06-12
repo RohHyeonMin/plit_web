@@ -1,4 +1,7 @@
-/myPage/
+/action/
 /controller/
 /dao/
-/action/
+/db/
+/login/
+/mainPage/
+/myPage/

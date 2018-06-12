@@ -7,12 +7,12 @@
 		$("#toolbar").append("<img src='http://localhost:8080/plit/mainPage/icon.jpg' id='userIcon'/>");
 		$("#userIcon").click( function()
 			{
-				window.location.href = "MyPage.bo"
+				window.location.href = "myPage.bo"
 			}
 		);
 		$("#toolbar").append("<div class='searchBox'> </div>");
 		$("#toolbar > .searchBox").append("<input type='text' class='searchTerm' placeholder='Search...'/>");
-		$("#toolbar > .searchBox").append("<button type='submit' class='searchButton'> <img src='http://localhost:8080/plit/mainPage/search.png' id ='searchImg'> </button>");
+		$("#toolbar > .searchBox").append("<button type='submit' class='searchButton'> <img src='mainPage/search.png' id ='searchImg'> </button>");
 		
 		
 		// ë©ë´ ìì´ì½ ì ëë©ì´ì
