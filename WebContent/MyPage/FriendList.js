@@ -42,7 +42,6 @@ function initFriendList()
                     margin : "5px 25% 2px 25%",
                     lineHeight : "50px",
                     float : "none",
-                    backgroundColor : "Yellow",
                     backgroundSize : "100%",
                     backgroundPosition : "center center",
                     backgroundRepeat : "no-repeat",
