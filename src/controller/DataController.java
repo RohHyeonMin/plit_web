@@ -17,16 +17,27 @@ implements javax.servlet.Servlet {
 protected void doProcess(HttpServletRequest request, HttpServletResponse response) 
 		throws ServletException, IOException {
 	
+	request.setCharacterEncoding("UTF-8"); // 받는거 UTF-8 인코딩
+	response.setContentType("text/html;charset=UTF-8"); // 보낼 때도 UTF-8로 인코딩
+	
 	String dataType = request.getParameter("type");
 	DataDao dataDao = new DataDao();
 
-	if( dataType.equals("friendList") ) // 친구목록 불러오기
+	if( dataType.equals("getFriendList") ) // 친구목록 불러오기
 	{
 		String id = request.getParameter("id");
 		JSONArray json = dataDao.getFriendList( id, 0, 10 );
 		
 		if( json != null )
 			response.getWriter().println( json );
+	}
+	else if( dataType.equals("setStateMessage") ) // 친구목록 불러오기
+	{
+		String id = request.getParameter("id");
+		String message = request.getParameter("message");
+		int result = dataDao.setStateMessage( id, message ); // 0이면 false, 1이면 true
+		
+		response.getWriter().println( result ); // "true", "false" 둘중 하나를 보냄
 	}
 	
 }

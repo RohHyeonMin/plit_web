@@ -28,6 +28,10 @@
                 <div id="user_image"></div>
                 <div id="user_state_message">상태 메세지 입니다.</div>
             </div>
+            <div id="follow">
+                <div >팔로우</div><div>팔로워</div>
+                <div id="user_follow">0</div><div id="user_follower">0</div>
+            </div>
             <div id="user_friend"></div>
         </aside> 
         <section>

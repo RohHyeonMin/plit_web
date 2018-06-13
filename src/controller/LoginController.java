@@ -12,17 +12,20 @@ import action.ActionForward;
 import login.JoinUserAction;
 import login.LoginUserAction;
 
-/* ·Î±×ÀÎ, ·Î±×¾Æ¿ô, È¸¿ø °¡ÀÔ */
+/* ï¿½Î±ï¿½ï¿½ï¿½, ï¿½Î±×¾Æ¿ï¿½, È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ */
 public class LoginController extends javax.servlet.http.HttpServlet 
 implements javax.servlet.Servlet{
 
-	// doGet, doPost ¿äÃ» ¸ğµÎ ÀÌ ¸Ş¼­µå¸¦ ¼öÇà
+	// doGet, doPost ï¿½ï¿½Ã» ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ş¼ï¿½ï¿½å¸¦ ï¿½ï¿½ï¿½ï¿½
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response) 
 				throws ServletException, IOException {
-			
-		String RequestURI = request.getRequestURI();  // ÇÁ·ÎÁ§Æ® & ÆÄÀÏ °æ·Î
-		String contextPath = request.getContextPath();// ÇÁ·ÎÁ§Æ® °æ·Î
-		String command = RequestURI.substring(contextPath.length()); // ÆÄÀÏ¸í
+
+		request.setCharacterEncoding("UTF-8"); // ë°›ëŠ”ê±° UTF-8 ì¸ì½”ë”©
+		response.setContentType("text/html;charset=UTF-8"); // ë³´ë‚¼ ë•Œë„ UTF-8ë¡œ ì¸ì½”ë”©
+		
+		String RequestURI = request.getRequestURI();  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® & ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+		String contextPath = request.getContextPath();// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½
+		String command = RequestURI.substring(contextPath.length()); // ï¿½ï¿½ï¿½Ï¸ï¿½
 		ActionForward forward = null;
 		Action action = null;
 		
@@ -75,8 +78,8 @@ implements javax.servlet.Servlet{
 			else
 			{
 				// RequestDispatcher
-				// ÇöÀç  request¿¡ ´ã°í ÀÖ´Â Á¤º¸¸¦ ÀúÀåÇÏ°í ÀÖ´Ù°¡ ±× ´ÙÀ½ÆäÀÌÁö, ´ÙÀ½ÆäÀÌÁö¿¡¼­µµ
-				// ÇØ´ç Á¤º¸¸¦ º¼ ¼ö ÀÖ°Ô ÀúÀåÇÏ´Â ±â´É
+				// ï¿½ï¿½ï¿½ï¿½  requestï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ö´Ù°ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+				// ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½
 				RequestDispatcher dispatcher = 
 						request.getRequestDispatcher(forward.getPath());
 				dispatcher.forward(request, response);

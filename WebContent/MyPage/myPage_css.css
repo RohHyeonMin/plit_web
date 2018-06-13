@@ -107,7 +107,8 @@ header{
         position : relative;
         width : 80%;
         height : 340px; 
-        margin : 20px auto;
+        margin : 0 auto;
+        margin-top : 20px;
     }
 
         /* 사용자 id */
@@ -167,12 +168,88 @@ header{
             border-radius: 7px;
         }
 
+    #sec > aside > #follow{ /* height : 90px */
+        width : 80%;
+        height : 60px;
+        margin : 15px auto;
+    }
+
+        /* 팔로우 */
+        #sec > aside > #follow :nth-child(1){ 
+            color : rgba(255, 255, 255, 0.8);
+            width : 49%;
+            height : 30px;
+            
+            border-right-color : rgba(255, 255, 255, 0.8);
+            border-right-style : solid;
+            border-right-width : 1px;
+            
+            text-align : center;
+            font-weight: 1000;
+            line-height: 30px;
+
+            overflow : hidden;
+            text-overflow: ellipsis;
+            white-space : nowrap;
+            float : left;
+        }
+        /* 팔로워 */
+        #sec > aside > #follow :nth-child(2){ 
+            color : rgba(255, 255, 255, 0.8);
+            width : 49%;
+            height : 30px;
+
+            text-align : center;
+            font-weight: 1000;
+            line-height: 30px;
+
+            overflow : hidden;
+            text-overflow: ellipsis;
+            white-space : nowrap;
+            float : left;
+        }
+
+        /* 사용자 follow 상태 메세지 */
+        #sec > aside > #follow > #user_follow{ 
+            color : rgba(255, 255, 255, 0.8);
+            width : 49%;
+            height : 30px;
+            
+            border-right-color : rgba(255, 255, 255, 0.8);
+            border-right-style : solid;
+            border-right-width : 1px;
+            
+            text-align : center;
+            font-weight: 1000;
+            line-height: 30px;
+
+            overflow : hidden;
+            text-overflow: ellipsis;
+            white-space : nowrap;
+            float : left;
+        }
+
+        /* 사용자 follower 상태 메세지 */
+        #sec > aside > #follow > #user_follower{ 
+            color : rgba(255, 255, 255, 0.8);
+            width : 49%;
+            height : 30px;
+            
+            text-align : center;
+            font-weight: 1000;
+            line-height: 30px;
+
+            overflow : hidden;
+            text-overflow: ellipsis;
+            white-space : nowrap;
+        }
+
     /* 사용자 Info 상태 메세지 */
-    #sec > aside > #user_friend{ /** height 280px / 660px **/
+    #sec > aside > #user_friend{ /** height 210px / 660px **/
         color : black;
         background-color : rgb(244, 240, 234);
         width : 80%;
-        height : 260px;
+        height : 190px;
         margin : 0 auto;
         margin-bottom : 20px;
 
@@ -188,25 +265,6 @@ section{
     background-color : rgb(230, 230, 230);
     float : left;
 }
-
-@media ( max-width: 600px ) {
-	.searchBox {
-	  width: 15%;
-	  height: 25px;
-	  position: relative;
-	  padding-top: 6px;
-	  margin-left: 10px;
-	  float: left;
-	}
-	.searchButton{
-		padding-left: 0px;
-		width: 25px;
-	}
-	#searchImg{
-		float: left;
-	}
-    #list {
-    	width: 98%;
-    	margin: 1%;
-    }
+input:focus{
+    outline: none;
 }

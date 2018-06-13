@@ -19,6 +19,9 @@ public class Controller extends javax.servlet.http.HttpServlet
 	// doGet, doPost ��û ��� �� �޼��带 ����
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
+
+		request.setCharacterEncoding("UTF-8"); // 받는거 UTF-8 인코딩
+		response.setContentType("text/html;charset=UTF-8"); // 보낼 때도 UTF-8로 인코딩
 		
 		String RequestURI = request.getRequestURI();  // ������Ʈ & ���� ���
 		String contextPath = request.getContextPath();// ������Ʈ ���
