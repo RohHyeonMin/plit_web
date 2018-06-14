@@ -31,11 +31,17 @@ function initProfileImage()
         if( !userImage.firstChild ) // div없을때만
         {
             this.innerHTML = "<div id='image_background'>" + "</div>" 
-                            + "<input type='file' accept='image/*' style='display:none'>"  // 속성으로 multiple을 넣으면 여러개 가져올 수 있음.
-                            + "<div id='up_icon'>" + "</div>"; // 사진 등록아이콘 추가
-           imageBg = document.querySelector("#image_background");
+	            		   + "<form id='image_form' type='hidden'>"
+		                        + "<input type='file' accept='image/*' style='display:none'>"  // 속성으로 multiple을 넣으면 여러개 가져올 수 있음.
+		                        + "<input id='submit' type='submit' style='display:none'>"
+	                       + "</form>"
+                           + "<div id='up_icon'>" + "</div>"; // 사진 등록아이콘 추가
+            imageBg = document.querySelector("#image_background");
             uploadIcon = document.querySelector("#up_icon");
-            fileLoad = document.querySelector("#user_image > input"); // file 불러오는 input 태그
+            fileLoad = document.querySelector("input[type=file]"); // file 불러오는 input 태그
+            
+            imageForm = document.querySelector("#image_form");
+            submit = document.querySelector("#submit");
 
             /** 검정배경 css 적용 **/
             imageBg.style.width = "100%";
@@ -93,8 +99,41 @@ function initProfileImage()
                     // 먼저 사용자화면에 등록, 이 파일은 form 태그로 인해 서버 서블릿을 통해 서버로 전송될 것이다.
                     imageUrl = fileReader.result;
                     
+                    $("#submit").click(); // 서버로 이미지 보내기 위해 클릭이벤트 발생시키기
                 }
             }
+
+            /************************************************
+            		이미지 서버로 전송하기
+             *************************************************/
+            $("form#image_form").submit(function(event)
+            {
+
+            	var id = $("#toolbar > input").attr("value");
+            	event.preventDefault(); // 기존 리다이렉트 되는 이벤트 제거
+            	 
+            	// 이미지 데이터 가져오기 
+            	var formData = new FormData( $(this)[0] ); 
+            	formData.append("type","setProfileImage");
+            	formData.append("id", id);
+            	// 이미지 formData 넣기, 이미지 더 보내고 싶으면 formData.append('img', $(this)[1] ); 첫번째면 0, 두번째 이미지면 1 세번째 이미지면 2 반드시 key 값을 'img'로
+            	// 글도 같이 보낼 수 있다 formData.append('key', 'value' );
+            	  
+            	$.ajax({
+            	    url: '.data',
+            	    type: 'POST',
+            	    data: formData,
+            	    async: false,
+            	    cache: false,
+            	    contentType: false,
+            	    processData: false,
+            	    success: function (returndata) {
+            	      alert("이미지 업로드 성공");
+            	    }
+            	  });
+            	 
+            	return false; // 기존 리다이렉트 되는 이벤트 제거
+            });
         }
         /** css background-color 페이드 아웃 애니메이션 **/
         if( fadeoutId == 0 && !showingImage ) // 하나의 인터벌만 생성되도록
@@ -175,21 +214,7 @@ function initProfileImage()
                     else
                     {
                         // 자식노드 해제 ( imageBg, upload (input 태그), uploadIcon )
-                        if( imageBg )
-                        {
-                            userImage.removeChild( imageBg );
-                            imageBg = undefined;
-                        }
-                        if( fileLoad )
-                        {
-                            userImage.removeChild( fileLoad );
-                            fileLoad = undefined;
-                        }
-                        if( uploadIcon )
-                        {
-                            userImage.removeChild( uploadIcon );
-                            uploadIcon = undefined;
-                        } 
+                    	userImage.innerHTML = "";
 
                         clearInterval( fadeinId );
                         fadeinId = 0;
@@ -276,16 +301,8 @@ function initProfileImage()
                 } );
                 showImageXButton.addEventListener( "click", function()
                 {
-                    var size = userImage.childElementCount;
-                    for( var i = 0; i < size; i ++ )
-                    {
-                        userImage.removeChild( userImage.childNodes[0]) ;
-                    }
                     // 자식노드 해제
-                    imageBg = undefined;
-                    fileLoad = undefined;
-                    uploadIcon = undefined;
-                    showImageBg = undefined;
+                	userImage.innerHTML = "";
                     
                     /** 사진 확대보기 하면 fadeout, fadein interval이 동작안되기 때문에 삭제해주기 **/
                     clearInterval( fadeoutId );

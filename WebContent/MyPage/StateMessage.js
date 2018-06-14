@@ -135,7 +135,7 @@ function initStateMessage()
 	
 	                                    success : function( result ) // 상태메세지 변경을 성공햇을 시
 	                                    {
-	                                    	if( parseInt( result ) == 1 )
+	                                    	if( parseInt( result ) == 1 ) // 1이면 성공 0이면 실패
 	                                    	{
 	                                    		$("#user_state_message").text( $("#input_text").val() ); // 적었던걸로 바꿔주공
 	                                    	}

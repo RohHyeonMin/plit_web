@@ -6,12 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import javax.json.Json;
-import javax.json.JsonObject;
 import javax.naming.Context;
 import javax.naming.InitialContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.sql.DataSource;
-import javax.xml.ws.Response;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -112,6 +110,42 @@ public class DataDao {
 			pstmt = con.prepareStatement("UPDATE user_info SET massage= ? WHERE id= ?");
 			pstmt.setString(1, message);
 			pstmt.setString(2, id);
+			
+			int rs = pstmt.executeUpdate();
+			
+			if( rs != 0 ) // 업데이트 성공 시
+				result = 1;
+
+		}
+		catch(Exception ex)
+		{
+			System.out.println("getFriendList 실패: " + ex);
+		}
+		finally
+		{
+			try
+			{
+				if(rs!=null)
+					rs.close();
+				if(pstmt!=null) 
+					pstmt.close();
+				if(con!=null) 
+					con.close();
+			}
+			catch(SQLException ex){}
+		}
+		
+		return result;
+	}
+	// 상태메세지 변경하기
+	public int setProfileImage( HttpServletRequest request, String id ) 
+	{
+		int result = 0;
+		try
+		{
+			con = ds.getConnection();
+			pstmt = con.prepareStatement("UPDATE user_info SET massage= ? WHERE id= ?");
+			pstmt.setString(1, id);
 			
 			int rs = pstmt.executeUpdate();
 			
