@@ -57,18 +57,15 @@ public class BoardDao {
 	//글 목록 가져오기
 	public ArrayList getBoardList( int page, int limit )
 	{
-		String board_list_sql = "select * from board";
-				//+ "where rnum>=? and rnum<=?";
-		
+		String board_list_sql = "select * from board limit ?,?";
 		ArrayList list = new ArrayList();
 		
-		int startrow = ( ( page - 1 ) * 10 ) + 1; //읽기 시작할 row 번호.
-		int endrow = startrow + limit - 1; //읽을 마지막 row 번호.		
+		int startrow = ( ( page - 1 ) * 5 ); //읽기 시작할 row 번호.	
 		try{
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(board_list_sql);
-			//pstmt.setInt(1, startrow);
-			//pstmt.setInt(2, endrow);
+			pstmt.setInt(1, startrow);
+			pstmt.setInt(2, limit);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()){

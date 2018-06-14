@@ -10,6 +10,16 @@ $(document).ready( function() {
 	$("#toolbar > .searchBox").append("<input type='text' class='searchTerm' placeholder='Search...'/>");
 	$("#toolbar > .searchBox").append("<button type='submit' class='searchButton'> <img src='http://localhost:8080/plit/mainPage/search.png' id ='searchImg'> </button>");
 	*/
+	var sidebarheight = $('#list').height();
+    var windowheight = $(window).height();
+    
+	/** list부분을 스크롤시 발생하는 함수 **/
+	$("#list").scroll(function(){	
+        if ($(this)[0].scrollHeight - Math.round($(this).scrollTop()) == $(this).outerHeight()){
+            //alert('end');
+        	alert($(this).scrollTop());
+        }         
+	});
 	
 	// 메뉴 아이콘 애니메이션
 	$('.menu').hover( function() {
@@ -28,7 +38,6 @@ $(document).ready( function() {
 	});
 
 	// searchBox 애니메이션
-	//TODO 검색창 클릭 시
     $(".searchTerm").click(function(){
     	$("#searchImg").slideToggle(200);
     	$("#searchImg").attr('src','http://localhost:8080/plit/mainPage/close.png');

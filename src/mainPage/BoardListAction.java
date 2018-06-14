@@ -29,10 +29,10 @@ public class BoardListAction implements Action{
    		}
    		
 		BoardDao boardDao = new BoardDao();
-		ArrayList boardlist  =new ArrayList();
+		ArrayList boardlist = new ArrayList();
 		
 	  	int page = 1;
-		int limit = 10; // 한번에 불러올 글 갯수
+		int limit = 5; // 한번에 불러올 글 갯수
 		
 		boardlist = boardDao.getBoardList(page, limit); //리스트를 받아 옴
    				
