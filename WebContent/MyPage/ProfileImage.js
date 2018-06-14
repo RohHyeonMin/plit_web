@@ -16,9 +16,12 @@ function initProfileImage()
     var showingImage = false; // 프로필 사진 클릭 시 확대상태인가?
     var showingImageExit = false; // 확대사진 보고 x를 눌렀는가?
     
-    // 임시 image url 변수 ( 실제로는 DB에서 url 받아서 여기 넣을거임 )
-    var imageUrl = "MyPage/test.jpg";
-    userImage.style.backgroundImage = "url('" + imageUrl + "')"; // 프로필사진 등
+    // 임시 image url 변수
+    var imageUrl = $("#image_url").val(); //"MyPage/test.jpg";
+    if( imageUrl.toUpperCase() != "NULL")
+    	userImage.style.backgroundImage = "url('" + imageUrl + "')"; // 프로필사진 등
+    else
+    	userImage.style.backgroundImage = "url('MyPage/test.jpg')"; // 프로필사진 등
             
     /************************************************
         사진위에 마우스 올리면
@@ -31,8 +34,8 @@ function initProfileImage()
         if( !userImage.firstChild ) // div없을때만
         {
             this.innerHTML = "<div id='image_background'>" + "</div>" 
-	            		   + "<form id='image_form' type='hidden'>"
-		                        + "<input type='file' accept='image/*' style='display:none'>"  // 속성으로 multiple을 넣으면 여러개 가져올 수 있음.
+	            		   + "<form id='image_form' type='hidden' enctype='multipart/form-data'>"
+		                        + "<input type='file' name='profileImage' accept='image/*' style='display:none'>"  // 속성으로 multiple을 넣으면 여러개 가져올 수 있음.
 		                        + "<input id='submit' type='submit' style='display:none'>"
 	                       + "</form>"
                            + "<div id='up_icon'>" + "</div>"; // 사진 등록아이콘 추가
@@ -122,6 +125,7 @@ function initProfileImage()
             	$.ajax({
             	    url: '.data',
             	    type: 'POST',
+            	    enctype: "multipart/form-data",
             	    data: formData,
             	    async: false,
             	    cache: false,

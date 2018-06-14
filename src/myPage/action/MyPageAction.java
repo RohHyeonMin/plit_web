@@ -1,31 +1,76 @@
 package myPage.action;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 
 import action.Action;
 import action.ActionForward;
 
 /*
- *  Action Å¬·¡½º¸¦ »ó¼Ó¹Ş¾Æ execute ¸Ş¼Òµå ÀçÁ¤ÀÇ ÈÄ ActionForward Å¬·¡½º¸¦ ¹İÈ¯ÇÏ¿© forwardÇÒ ÆäÀÌÁö ¹İÈ¯
+ *  ë§ˆì´í˜ì´ì§€ ì²˜ìŒ ë„ìš¸ë•Œ í•„ìš”í•œ í”„ë¡œí•„ì‚¬ì§„, ìƒíƒœë©”ì„¸ì§€ ë“±ì„ ì •ì  ë¡œë”©
  */
 
 public class MyPageAction implements Action
 {
+	Connection con;
+	PreparedStatement pstmt;
+	ResultSet rs;
+	DataSource ds; // Connection pool
+	
+	public MyPageAction()
+	{
+		Context init;
+		try
+		{
+			init = new InitialContext();
+			ds = (DataSource) init.lookup("java:comp/env/jdbc/MysqlDB");	
+		} 
+		catch (NamingException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
 	@Override
 	public ActionForward execute( HttpServletRequest request, HttpServletResponse response )
 	{
 		ActionForward forward = new ActionForward();
-		try
+		
+		forward.setRedirect( false );
+		forward.setPath("/MyPage/myPage.jsp");
+		
+		return forward;
+	}
+	
+	public void getMyPage( HttpServletRequest request, String id )
+	{
+
+		try 
 		{
-			forward.setRedirect( false );
-			forward.setPath("/MyPage/myPage.jsp");
+			con = ds.getConnection();
+			pstmt = con.prepareStatement("SELECT user_photo, massage FROM user_info WHERE id = ? ");
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
 			
-			return forward;
-		}
-		catch( Exception e )
+			while( rs.next() )
+			{
+				request.setAttribute("user_photo", rs.getString("user_photo"));
+				request.setAttribute("message", rs.getString("massage"));
+			}
+			
+		} 
+		catch (SQLException e) 
 		{
-			return null;
+			e.printStackTrace();
 		}
 	}
 
