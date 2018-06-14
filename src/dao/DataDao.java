@@ -8,11 +8,12 @@ import java.util.ArrayList;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
-import javax.servlet.http.HttpServletRequest;
 import javax.sql.DataSource;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+
+import com.oreilly.servlet.MultipartRequest;
 
 public class DataDao {
 	
@@ -138,20 +139,20 @@ public class DataDao {
 		return result;
 	}
 	// 상태메세지 변경하기
-	public int setProfileImage( HttpServletRequest request, String id ) 
+	public int setProfileImage( String imagePath, String id ) 
 	{
 		int result = 0;
 		try
-		{
+		{			
 			con = ds.getConnection();
-			pstmt = con.prepareStatement("UPDATE user_info SET massage= ? WHERE id= ?");
-			pstmt.setString(1, id);
+			pstmt = con.prepareStatement("UPDATE user_info SET user_photo= ? WHERE id= ?");
+			pstmt.setString(1, imagePath);
+			pstmt.setString(2, id);
 			
 			int rs = pstmt.executeUpdate();
 			
 			if( rs != 0 ) // 업데이트 성공 시
 				result = 1;
-
 		}
 		catch(Exception ex)
 		{

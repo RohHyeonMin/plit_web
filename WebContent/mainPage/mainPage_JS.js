@@ -1,10 +1,10 @@
 	$(document).ready( function() {
 		var id = $("#toolbar > input").attr("value");
 		// toolbar íê·¸ ì¶ê°	
-		$("#toolbar").append("<img src='http://localhost:8080/plit/mainPage/setting.png' class='menu'>");	
-		$("#toolbar").append("<img src='http://localhost:8080/plit/mainPage/home.png' class='menu'>");
+		$("#toolbar").append("<img src='mainPage/setting.png' class='menu'>");	
+		$("#toolbar").append("<img src='mainPage/home.png' class='menu'>");
 		$("#toolbar").append("<span id='userId'>" + id  + "</span>");
-		$("#toolbar").append("<img src='http://localhost:8080/plit/mainPage/icon.jpg' id='userIcon'/>");
+		$("#toolbar").append("<img src='mainPage/icon.jpg' id='userIcon'/>");
 		$("#userIcon").click( function()
 			{
 				window.location.href = "myPage.bo"
@@ -35,7 +35,7 @@
 		//TODO ê²ìì°½ í´ë¦­ ì
 	    $(".searchTerm").click(function(){
 	    	$("#searchImg").slideToggle(200);
-	    	$("#searchImg").attr('src','http://localhost:8080/plit/mainPage/close.png');
+	    	$("#searchImg").attr('src','mainPage/close.png');
 	    	$("#searchImg").slideToggle(200);
 	    	
 	    	$("#searchImg").on("click", function(){
@@ -45,7 +45,7 @@
 	    //TODO ê²ìì°½ í´ë¦­ í´ì  ì
 	    $(".searchTerm").focusout(function(){
 	    	$("#searchImg").slideToggle(200);
-	    	$("#searchImg").attr('src','http://localhost:8080/plit/mainPage/search.png');
+	    	$("#searchImg").attr('src','mainPage/search.png');
 	    	$("#searchImg").slideToggle(200);
 	    });
 	});
@@ -115,7 +115,7 @@
 		  //TODO ê²ìì°½ í´ë¦­ ì
 		    $(".searchTerm").click(function(){
 		    	$("#searchImg").slideToggle(200);
-		    	$("#searchImg").attr('src','http://localhost:8080/plit/mainPage/close.png');
+		    	$("#searchImg").attr('src','mainPage/close.png');
 		    	$("#searchImg").slideToggle(200);
 		    	
 		    	$("#searchImg").on("click", function(){
@@ -125,7 +125,7 @@
 		  	//TODO ê²ìì°½ í´ë¦­ í´ì  ì
 	    	$(".searchTerm").focusout(function(){
 		    	$("#searchImg").slideToggle(200);
-		    	$("#searchImg").attr('src','http://localhost:8080/plit/mainPage/search.png');
+		    	$("#searchImg").attr('src','mainPage/search.png');
 		    	$("#searchImg").slideToggle(200);
 		    });
 		}
