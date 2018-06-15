@@ -3,7 +3,7 @@ function initFriendList()
 	var id = $("#toolbar > input").attr("value");
 	
     $.ajax({
-        type : "POST",
+        type : "POST",d,     
         url : ".data", // .data를 url로 서버로 보내주면 DataController서블릿이 실행
         data : { "type" : "getFriendList", "id" : id}, // 서버에서 사용할 메소드를 type 에다가 넣어준다
         dataType : "json",
