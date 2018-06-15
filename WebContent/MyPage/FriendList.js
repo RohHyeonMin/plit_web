@@ -12,7 +12,7 @@ function initFriendList()
         {
             for( key in jsonArray ) // foreach문 jsonArray 마지막 인덱스까지 key 값을 반환해준다.
             {
-                var user_info = jsonArray[ key ].user_photo;
+                var user_photo = jsonArray[ key ].user_photo;
                 var friend_id = jsonArray[ key ].id;
                 var message = jsonArray[ key ].message;
                 
@@ -26,7 +26,7 @@ function initFriendList()
                                              "</div>" + 
                                          "</div>");
                 
-                if( user_info != null ) // 친구 프로필사진이 있을 시
+                if( user_photo != null ) // 친구 프로필사진이 있을 시
 	                $(".friend_profile_image" + key ).css({
 	                    backgroundImage : "url('" + user_photo + "')",
 	                });
