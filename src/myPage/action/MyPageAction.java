@@ -16,7 +16,7 @@ import action.Action;
 import action.ActionForward;
 
 /*
- *  마이페이지 처음 띄울때 필요한 프로필사진, 상태메세지 등을 정적 로딩
+ *  留덉씠�럹�씠吏� 泥섏쓬 �쓣�슱�븣 �븘�슂�븳 �봽濡쒗븘�궗吏�, �긽�깭硫붿꽭吏� �벑�쓣 �젙�쟻 濡쒕뵫
  */
 
 public class MyPageAction implements Action
@@ -46,7 +46,7 @@ public class MyPageAction implements Action
 		ActionForward forward = new ActionForward();
 		
 		forward.setRedirect( false );
-		forward.setPath("/MyPage/myPage.jsp");
+		forward.setPath("/myPage/myPage.jsp");
 		
 		return forward;
 	}

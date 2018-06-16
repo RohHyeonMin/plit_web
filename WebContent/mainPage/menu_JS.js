@@ -2,11 +2,12 @@
 $.menu = function(){
 
 	var toolbar = $("#toolbar");
+	var id = $("#toolbar > input").attr("value");
 	// toolbar 태그 추가	
-	toolbar.append("<img src='mainPage/write.png' class='menu'>");
+	toolbar.append("<img src='mainPage/write.png' class='menu' id='write'>");
 	toolbar.append("<img src='mainPage/setting.png' class='menu'>");	
 	toolbar.append("<img src='mainPage/home.png' class='menu'>");
-	toolbar.append("<span id='userId'> user id </span>");
+	toolbar.append("<span id='userId'>" + id + "</span>");
 	toolbar.append("<img src='mainPage/icon.jpg' id='userIcon'/>");
 	toolbar.append("<div class='searchBox'> </div>");
 	$("#toolbar > .searchBox").append("<input type='text' class='searchTerm' placeholder='Search...'/>");
@@ -31,7 +32,11 @@ $.menu = function(){
 	});
 	
 	$("#userIcon").click(function(){
-    	location.href='myPage.bo'
+    	location.href='myPage.bo?id=' + id;
+    });
+	$("#write").click(function(){
+		///TODO 글쓰기
+    	location.href='writeBoard.bo?id=' + id;
     });
 
 	// searchBox 애니메이션
