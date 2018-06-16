@@ -17,11 +17,11 @@ function initProfileImage()
     var showingImageExit = false; // 확대사진 보고 x를 눌렀는가?
     
     // 임시 image url 변수
-    var imageUrl = $("#image_url").val(); //"MyPage/test.jpg";
+    var imageUrl = $("#image_url").val(); //"myPage/test.jpg";
     if( imageUrl.toUpperCase() != "NULL")
     	userImage.style.backgroundImage = "url('" + imageUrl + "')"; // 프로필사진 등
     else
-    	userImage.style.backgroundImage = "url('MyPage/test.jpg')"; // 프로필사진 등
+    	userImage.style.backgroundImage = "url('myPage/test.jpg')"; // 프로필사진 등
             
     /************************************************
         사진위에 마우스 올리면
@@ -55,7 +55,7 @@ function initProfileImage()
             /** 사진업로드 아이콘 css 적용 **/
             uploadIcon.style.width = "30px";
             uploadIcon.style.height = "30px";
-            uploadIcon.style.backgroundImage = "url('MyPage/picture.png')";
+            uploadIcon.style.backgroundImage = "url('myPage/picture.png')";
             uploadIcon.style.backgroundRepeat = "no-repeat";
             uploadIcon.style.backgroundSize = "100%";
             uploadIcon.style.position = "absolute";
@@ -289,7 +289,7 @@ function initProfileImage()
                 showImageXButton.style.height = "25px";
                 showImageXButton.style.top = "0px";
                 showImageXButton.style.right = "-30px";
-                showImageXButton.style.backgroundImage = "url('MyPage/xbotton.png')";
+                showImageXButton.style.backgroundImage = "url('myPage/xbotton.png')";
                 showImageXButton.style.backgroundSize = "contain"; // 가로를 기준으로 세로비율이 결정되도록
                 showImageXButton.style.backgroundRepeat = "no-repeat";
                 showImageXButton.style.backgroundPosition = "center center"; // 정중앙에 위치하도록

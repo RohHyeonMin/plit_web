@@ -12,7 +12,7 @@ function initStateMessage()
             $("#user_state_message").append("<div class='pencil'></div>");
             $(".pencil").css({
                 position : "absolute",
-                backgroundImage : "url('MyPage/pencil.png')",
+                backgroundImage : "url('myPage/pencil.png')",
                 backgroundSize : "100%",
                 width : "26px",
                 height : "26px",
@@ -68,7 +68,7 @@ function initStateMessage()
                             float : "left",
                             marginLeft : "5px",
                             
-                            backgroundImage : "url('MyPage/checked.png')",
+                            backgroundImage : "url('myPage/checked.png')",
                             backgroundSize : "contain",
                             backgroundRepeat : "no-repeat",
                             backgroundPosition : "center center",
@@ -81,7 +81,7 @@ function initStateMessage()
                             float : "left",
                             marginLeft : "5px",
                             
-                            backgroundImage : "url('MyPage/cancel.png')",
+                            backgroundImage : "url('myPage/cancel.png')",
                             backgroundSize : "contain",
                             backgroundRepeat : "no-repeat",
                             backgroundPosition : "center center",

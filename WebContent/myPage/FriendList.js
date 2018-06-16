@@ -32,7 +32,7 @@ function initFriendList()
 	                });
                 else
                 	$(".friend_profile_image" + key ).css({
-	                    backgroundImage : "url('MyPage/test.jpg')",
+	                    backgroundImage : "url('myPage/test.jpg')",
 	                });
                 
                 // 친구 이미지는 각각 업로드 되야하기 때문에 foreach문 안에서 해준다

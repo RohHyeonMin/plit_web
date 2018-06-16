@@ -18,7 +18,7 @@
     <meta charset="UTF-8">
     <title><%= id %>님의 페이지</title>
     
-    <link rel="stylesheet" href="MyPage/myPage_css.css">
+    <link rel="stylesheet" href="myPage/myPage_css.css">
     
 </head>
 <body>
@@ -49,7 +49,7 @@
 </html>
 
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script src="MyPage/myPage.js"></script>
-<script src="MyPage/ProfileImage.js"></script>
-<script src="MyPage/StateMessage.js"></script>
-<script src="MyPage/FriendList.js"></script>
+<script src="myPage/myPage.js"></script>
+<script src="myPage/ProfileImage.js"></script>
+<script src="myPage/StateMessage.js"></script>
+<script src="myPage/FriendList.js"></script>
