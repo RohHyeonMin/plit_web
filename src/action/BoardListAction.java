@@ -1,13 +1,10 @@
-package mainPage;
+package action;
 
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import action.Action;
-import action.ActionForward;
 import dao.BoardDao;
 
 // 게시글 가져오기

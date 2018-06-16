@@ -18,16 +18,17 @@
 	<% String ip = "localhost"; %>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<link rel="stylesheet" type="text/css" href="mainPage/mainPage_CSS.css">
-	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script src="https://code.jquery.com/jquery-latest.min.js"></script>
 	<script type="text/javascript" src="mainPage/mainPage_JS.js"></script>
+	<script type="text/javascript" src="mainPage/menu_JS.js"></script>
+	<script type="text/javascript" src="mainPage/board_JS.js"></script>
 	<title> Main Page </title>
 </head>
 
 <body>
-
-	<div id="toolbar" role="banner"> 
-	<input type="hidden" value="<%= id %>"> 
-	</div>
+	 
+	<div id="toolbar"> <input type="hidden" value="<%= id %>"> </div>
+	<div id="wrapper">
 	<div id="map"> MAP </div>
 	
 	<div id="list">
@@ -40,12 +41,12 @@
 				BoardBean bl = (BoardBean)boardList.get(i);
 				String time = bl.getDateBoard().substring(0, 10);
 	%>
-	<div id="item">
+	<div class="item">
 		<table>
 			<tr>
-				<td id="user">
+				<td class="user">
 					<div>
-						<img src="mainPage/icon.jpg" id="member_icon">
+						<img src="mainPage/icon.jpg" class="member_icon">
 						<div> <%= bl.getId() %> </div>
 					</div>				
 				</td>
@@ -55,7 +56,7 @@
 					</div>
 				</td>
 			</tr>	
-			<tr>
+			<tr class="bottomBox">
 				<td> <%= time %> </td>
 				<td class="bottom"> <img src="mainPage/comment.png"> </td>
 				<td class="bottom"> ´ñ±Û </td>
@@ -68,6 +69,7 @@
 		}
 		%>
 	
+	</div>
 	</div>
 </body>
 </html>
