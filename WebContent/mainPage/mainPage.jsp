@@ -14,7 +14,6 @@
 
 <html>
 <head>
-	<% String ip = "localhost"; %>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<link rel="stylesheet" type="text/css" href="mainPage/mainPage_CSS.css">
 	<script src="https://code.jquery.com/jquery-latest.min.js"></script>
@@ -41,6 +40,7 @@
 				String time = bl.getDateBoard().substring(0, 10);
 	%>
 	<div class="item">
+	<div class="num" style="display:none"> <%= bl.getBoardNum() %> </div>
 		<table>
 			<tr>
 				<td class="user">

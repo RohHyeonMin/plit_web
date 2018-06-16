@@ -39,7 +39,6 @@ $.menu = function(){
     	location.href='writeBoard.bo?id=' + id;
     });
 	$("#home").click(function(){
-		///TODO 글쓰기
     	location.href='mainPageAction.bo';
     });
 

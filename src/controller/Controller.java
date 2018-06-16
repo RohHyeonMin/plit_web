@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.*;
-import action.BoardListAction;
 import myPage.action.MyPageAction;
 
 public class Controller extends javax.servlet.http.HttpServlet 
@@ -41,6 +40,11 @@ public class Controller extends javax.servlet.http.HttpServlet
 		else if( command.equals("/myPage.bo") )
 		{
 			action = new MyPageAction();
+			forward = action.execute(request, response);
+		}
+		else if( command.equals("/readBoard.bo") )
+		{
+			action = new BoardReadAction();
 			forward = action.execute(request, response);
 		}
 		

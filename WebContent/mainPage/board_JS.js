@@ -30,7 +30,7 @@ $.boardItem = function(){
 $.clickBoard = function(){
 	$(".item").click( function(){
 		var index = $(this).index();
-		var a = $(".id").eq(index).text();
-		alert(a);
+		var a = $(".num").eq(index).text();
+		location.href='readBoard.bo?num='+ a;
 	});
 };

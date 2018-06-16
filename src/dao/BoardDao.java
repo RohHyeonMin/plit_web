@@ -54,6 +54,7 @@ public class BoardDao {
 		return x;
 	}
 	*/
+	
 	//글 목록 가져오기
 	public ArrayList getBoardList( int page, int limit )
 	{
@@ -95,42 +96,43 @@ public class BoardDao {
 		}
 		return null;
 	}
-	/*
-	//글 내용 보기.
-	public BoardBean getDetail(int num) throws Exception{
+	
+	
+	//글 내용 보기. ( 자세히 보기 )
+	public BoardBean getBoardDetail( int num ) throws Exception{
+		
 		BoardBean board = null;
 		try{
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(
-					"select * from memberboard where BOARD_NUM = ?");
-			pstmt.setInt(1, num);
-			
+					"select * from board where BOARD_NUM = ?");
+			pstmt.setInt(1, num);		
 			rs= pstmt.executeQuery();
 			
 			if(rs.next()){
 				board = new BoardBean();
-				board.setBOARD_NUM(rs.getInt("BOARD_NUM"));
-				board.setBOARD_ID(rs.getString("BOARD_ID"));
-				board.setBOARD_SUBJECT(rs.getString("BOARD_SUBJECT"));
-				board.setBOARD_CONTENT(rs.getString("BOARD_CONTENT"));
-				board.setBOARD_FILE(rs.getString("BOARD_FILE"));
-				board.setBOARD_RE_REF(rs.getInt("BOARD_RE_REF"));
-				board.setBOARD_RE_LEV(rs.getInt("BOARD_RE_LEV"));
-				board.setBOARD_RE_SEQ(rs.getInt("BOARD_RE_SEQ"));
-				board.setBOARD_READCOUNT(rs.getInt("BOARD_READCOUNT"));
-				board.setBOARD_DATE(rs.getDate("BOARD_DATE"));
+				board.setBoardNum(rs.getInt("board_num"));
+				board.setBoardContent(rs.getString("board_content"));
+				board.setDateBoard(rs.getString("date_board"));
+				board.setGood(rs.getInt("good"));
+				board.setHits(rs.getInt("hits"));
+				board.setBoardTag(rs.getString("board_tag"));
+				board.setLatitude(rs.getDouble("board_latitude"));
+				board.setLongitude(rs.getDouble("board_longitude"));
+				board.setId(rs.getString("id"));
 			}
 			return board;
+			
 		}catch(Exception ex){
-			System.out.println("getDetail 에러 : " + ex);
+			System.out.println("getBoardDetail 에러 : " + ex);
 		}finally{
-			if(rs!=null)try{rs.close();}catch(SQLException ex){}
-			if(pstmt !=null)try{pstmt.close();}catch(SQLException ex){}
-			if(con !=null)try{con.close();}catch(SQLException ex){}
+			close(pstmt);
+			close(rs);
+			close(con);
 		}
 		return null;
 	}
-	
+	/*
 	//글 등록.
 	public boolean boardInsert(BoardBean board){
 		int num =0;
