@@ -6,7 +6,7 @@ $.menu = function(){
 	// toolbar 태그 추가	
 	toolbar.append("<img src='mainPage/write.png' class='menu' id='write'>");
 	toolbar.append("<img src='mainPage/setting.png' class='menu'>");	
-	toolbar.append("<img src='mainPage/home.png' class='menu'>");
+	toolbar.append("<img src='mainPage/home.png' class='menu' id='home'>");
 	toolbar.append("<span id='userId'>" + id + "</span>");
 	toolbar.append("<img src='mainPage/icon.jpg' id='userIcon'/>");
 	toolbar.append("<div class='searchBox'> </div>");
@@ -37,6 +37,10 @@ $.menu = function(){
 	$("#write").click(function(){
 		///TODO 글쓰기
     	location.href='writeBoard.bo?id=' + id;
+    });
+	$("#home").click(function(){
+		///TODO 글쓰기
+    	location.href='mainPageAction.bo';
     });
 
 	// searchBox 애니메이션

@@ -26,3 +26,11 @@ $.boardItem = function(){
 					"</div> </td> </tr>" +				
 				"</table> </div>");
 };
+
+$.clickBoard = function(){
+	$(".item").click( function(){
+		var index = $(this).index();
+		var a = $(".id").eq(index).text();
+		alert(a);
+	});
+};

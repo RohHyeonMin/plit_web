@@ -8,7 +8,8 @@ $(document).ready( function() {
 	var wh = height - 50;
 	$("#map").css('height', wh);
 	$("#list").css('height', wh );
-
+	
+	$.clickBoard();
 });
 
 // 창크기 변화 감지 ( 창 사이즈가 변할때 마다 호출 )
