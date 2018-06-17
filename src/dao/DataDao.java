@@ -120,7 +120,7 @@ public class DataDao {
 		}
 		catch(Exception ex)
 		{
-			System.out.println("getFriendList 실패: " + ex);
+			System.out.println("setStateMessage 실패: " + ex);
 		}
 		finally
 		{
@@ -156,7 +156,7 @@ public class DataDao {
 		}
 		catch(Exception ex)
 		{
-			System.out.println("getFriendList 실패: " + ex);
+			System.out.println("setProfileImage 실패: " + ex);
 		}
 		finally
 		{
@@ -175,4 +175,102 @@ public class DataDao {
 		return result;
 
 	}
+	
+	 public int setBoard( String Content, String user_name, String tag, double latitude ,double longitude, ArrayList<String> photos )
+	 {
+	    	int result = 0; // 0 fail, 1 success
+
+	    	try 
+	    	{                    
+	    		double board_latitude = latitude;
+	    		double board_longitude = longitude;
+	    		
+	    		// 기존에 50m안에 있는 코멘트로 위도,경도 일치시켜주는 작업 
+				con = ds.getConnection();
+	    		pstmt = con.prepareStatement("SELECT board_latitude,board_longitude FROM board WHERE board_latitude >= ? - 0.0001 AND  board_latitude <= ? + 0.0001 AND board_longitude >= ? - 0.0001 AND board_longitude <= ? + 0.0001 LIMIT 1");
+	    		pstmt.setDouble(1, latitude);
+	    		pstmt.setDouble(2, latitude);
+	    		pstmt.setDouble(3, longitude);
+	    		pstmt.setDouble(4, longitude);
+	    		
+	    		rs = pstmt.executeQuery();
+	    		
+	    		if(rs.next())
+	    		{
+	    			board_latitude = rs.getDouble(1);
+	    			board_longitude = rs.getDouble(2);
+	    		}	
+	    		 		
+	    		if( rs != null )
+	    			rs.close();
+	    		if( pstmt != null )
+	    			pstmt.close();
+	    		rs = null;
+	    		pstmt = null;
+	    		
+	    		pstmt = con.prepareStatement("INSERT INTO board( board_content, date_board, good,hits, board_tag, board_latitude, board_longitude, id ) VALUES (?,sysdate(),0,0,?,?,?,?)"); // mysql : sysdate(), cubrid : sysdatetime()
+	    		pstmt.setString(1, Content);
+	    		pstmt.setString(2, tag);
+	    		pstmt.setDouble(3, board_latitude);
+	    		pstmt.setDouble(4, board_longitude);
+	    		pstmt.setString(5, user_name);
+	    		result = pstmt.executeUpdate();
+
+	    		if( rs != null )
+	    			rs.close();
+	    		if( pstmt != null )
+	    			pstmt.close();
+	    		rs = null;
+	    		pstmt = null;
+	    		
+	    		pstmt = con.prepareStatement("SELECT board_num FROM board WHERE id = ? ORDER BY board_num DESC LIMIT 1");
+	    		pstmt.setString(1, user_name);
+	    		rs = pstmt.executeQuery();
+	    		
+	    		int board_num = 0;
+	    		
+	    		if(rs.next())
+	    		{
+	    			board_num = rs.getInt("board_num");
+	    		}
+	    		else
+	    		{
+	    			result = 0; // 실패
+	    			return result;
+	    		}
+	    		
+
+	    		for( int i=0; i<photos.size(); i++)
+	    		{
+		    		pstmt = con.prepareStatement("INSERT INTO board_photo VALUES (?,?)");
+		    		pstmt.setInt(1, board_num);
+		    		pstmt.setString(2, photos.get(i));
+		    		int success = pstmt.executeUpdate();
+		    		
+		    		if( pstmt != null )
+		    			pstmt.close();
+	    		}
+	    		
+	    		result = 1;
+	    	}
+	    	catch ( Exception e ) 
+	    	{
+	    		e.printStackTrace();
+	    	} 
+	    	finally 
+	    	{
+	    		try
+				{
+					if(rs!=null)
+						rs.close();
+					if(pstmt!=null) 
+						pstmt.close();
+					if(con!=null) 
+						con.close();
+				}
+				catch(SQLException ex){}
+	    	}
+	    	
+	    	return result;
+	    }   
 }

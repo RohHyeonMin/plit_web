@@ -44,10 +44,11 @@ section{
 
         #image_box{
             width : 95%;
-            height : 25%;
+            height : 170px;
             margin : 0 auto;
             margin-top : 20px;
             border : 1px solid rgba(0,0,0,0.3);
+            white-space: nowrap;
             overflow-x : scroll;
         }
 
@@ -59,14 +60,25 @@ section{
             margin-top : 15px;
         }
                 #upload{
-                    width : 20%;
+                    display: none;
+                    opacity: 0;
+                }
+                #upload_click{
+                    width : 10%;
                     height : 100%;
-                    margin-left : 4%;
+                }
+                #delete{
+                    position : absolute;
+                    width : 10%;
+                    height : 100%;
+                    margin-left : 1%;
+                    
                 }
                 #submit{
+                    position : absolute;
                     width : 20%;
                     height : 100%;
-                    margin-left : 30%;
+                    margin-left : 45%;
                 }
                 #cancel{
                     position : absolute;

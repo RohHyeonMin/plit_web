@@ -47,6 +47,11 @@ public class Controller extends javax.servlet.http.HttpServlet
 			action = new BoardReadAction();
 			forward = action.execute(request, response);
 		}
+		else if( command.equals("/writeBoard.bo") )
+		{
+			action = new BoardWriteAction();
+			forward = action.execute(request, response);
+		}
 		
 		/*********************************************************************/
 		

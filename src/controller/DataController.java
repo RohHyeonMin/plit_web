@@ -2,6 +2,8 @@ package controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Enumeration;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -90,10 +92,36 @@ protected void doProcess( HttpServletRequest request, HttpServletResponse respon
 
 			srcFile.renameTo( renameFile ); // 이름 바꾸기
 			
-			String imagePath = m_serverIP + contextPath + "/PlitImage" + "/" + id + "_profileImage" + extName;
+			String profileImageName = id + "_profileImage" + extName;
 			
 			/** DB에 넣기 **/
-			int result = dataDao.setProfileImage( imagePath, id ); // 0이면 false, 1이면 true
+			int result = dataDao.setProfileImage( profileImageName, id ); // 0이면 false, 1이면 true
+			
+			response.getWriter().println( result ); // "true", "false" 둘중 하나를 보냄
+		}
+		else if( dataType.equals("setBoard") ) // 게시글 작성
+		{
+			String id = multiRequest.getParameter("id"); // "id" 값 가져오기
+			String locationText = multiRequest.getParameter("locationText"); // "id" 값 가져오기
+			String textArea = multiRequest.getParameter("textArea"); // "id" 값 가져오기
+			
+			Enumeration Names = multiRequest.getFileNames(); // 얻어온 파일 명
+			ArrayList<String> fileNames = new ArrayList<>();
+			if( Names != null )
+			{
+				while( Names.hasMoreElements() ) // 등록한 사진만큼 이름 가져오기
+				{
+					String strName = Names.nextElement().toString();
+					String fileName = multiRequest.getFilesystemName(strName);
+					fileNames.add( fileName ); // 파일명 + 확장자명 추가
+				}
+			}
+			else
+			{
+				fileNames.add("");
+			}
+			/** DB에 넣기 **/
+			int result = dataDao.setBoard( textArea, id, "", 0, 0, fileNames ); // 0이면 false, 1이면 true
 			
 			response.getWriter().println( result ); // "true", "false" 둘중 하나를 보냄
 		}

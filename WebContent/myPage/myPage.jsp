@@ -3,6 +3,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <%
+	String imageServerPath = "http://127.0.0.1:8080/plit/PlitImage/";
+
 	String id = null;
 	String user_photo = null;
 	String message = null;
@@ -10,7 +12,7 @@
 		// 현재 사용자 id 받아오기
 		id = (String)session.getAttribute("id");
 		new MyPageAction().getMyPage(request, id); // request에 id값에 해당하는 사용자의 프로필사진, 상태메세지를 넣는다
-		user_photo = (String)request.getAttribute("user_photo");
+		user_photo = imageServerPath + (String)request.getAttribute("user_photo");
 		message = (String)request.getAttribute("message");
 	}
 %>
