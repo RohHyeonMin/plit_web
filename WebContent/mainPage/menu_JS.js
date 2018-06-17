@@ -59,7 +59,7 @@ $.changeMenu = function(width){
 	{	
 		//TODO window width is less than 600px
 	  	$('#map').fadeOut(); // 맵 사라지기
-
+	  	$('#logo').css('display','none');
 	  	// 검색 입력창 사라지기
 	  	$('.searchTerm').stop().animate({
 	  		width: 0,
@@ -71,6 +71,7 @@ $.changeMenu = function(width){
 	  		$('.menu').css('display','none');
 	  		$('#userId').css('display','none');
 	  		$('#userIcon').css('display','none');
+	  		
 	  		// 검색 입력창 늘어나기
 	  		$('.searchBox').css('width', '98%');
 	  		$('.searchBox').css('margin-left', '1%');
@@ -101,7 +102,8 @@ $.changeMenu = function(width){
 		$('.menu').css('display','block');
 	  	$('#userId').css('display','block');
 	  	$('#userIcon').css('display','block');
-
+	  	$('#logo').css('display','block');
+	  	
 		$('.searchBox').css('width', '15%');
 		$('.searchBox').css('margin-right', '40px');
 	  	$('.searchTerm').stop().animate({

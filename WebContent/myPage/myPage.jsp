@@ -22,12 +22,10 @@
     
 </head>
 <body>
-	<input id="image_url" type="hidden" value="<%= user_photo %>"> 
-    <header> <!-- 검색, 사용자사진, 홈, 친구 등등 있는곳 -->
-        <div id="toolbar" role="banner">
-			<input type="hidden" value="<%= id %>"> 
-        </div>
-    </header>
+<div id="toolbar"> <input type="hidden" value="<%= id %>"> </div>
+<div id="wrapper">
+<input id="image_url" type="hidden" value="<%= user_photo %>"> 
+
     <div id="sec"> <!-- header 부분과 분리 주내용 기입 -->
         <aside> <!-- 사용자 정보 -->
             <div id="user_userInfo_box">
@@ -35,16 +33,18 @@
                 <div id="user_image""></div>
                 <div id="user_state_message"><%= message %></div>
             </div>
+            
             <div id="follow">
                 <div >팔로우</div><div>팔로워</div>
                 <div id="user_follow">0</div><div id="user_follower">0</div>
             </div>
             <div id="user_friend"></div>
         </aside> 
-        <section>
         
-        </section>
+        <section> </section>
     </div>
+    
+</div>
 </body>
 </html>
 
@@ -53,3 +53,4 @@
 <script src="myPage/ProfileImage.js"></script>
 <script src="myPage/StateMessage.js"></script>
 <script src="myPage/FriendList.js"></script>
+<script type="text/javascript" src="mainPage/menu_JS.js" charset='UTF-8'></script>

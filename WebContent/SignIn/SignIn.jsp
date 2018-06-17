@@ -40,13 +40,12 @@
             	<td colspan="2"> <input id="pw" type="password" name="pw"/> </td>
             </tr>
             <tr>
-            	<td> <div class="wrap"> <input type="submit" class="button" value="SIGN UP" id ="signUp"> </input></td>
-            	<td> <div class="wrap"> <input type="submit" class="button" value="SIGN IN" id ="signIn"> </input> </td>
+            	<td> <div class="wrap"> <input type="submit" class="button" value="SIGN UP" id ="signUp"> </input> </div></td>
+            	<td> <div class="wrap"> <input type="submit" class="button" value="SIGN IN" id ="signIn"> </input> </div> </td>
             </tr>
     </table>
     </form>
 </div>
-<%= request.getAttribute("join") %>
 </center>
 </body>
 </html>

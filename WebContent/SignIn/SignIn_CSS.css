@@ -38,10 +38,10 @@ input:focus {
 	background-image: url('BG_pw.png');
 }
 
-#signUp, #signIn {
+#signUp, #login {
 	border-style: none;
 	width: 123px;
-	height: 25px;
+	height: 36px;
 	margin: auto;
 	text-align: center;
 }
@@ -49,11 +49,11 @@ input:focus {
 /** CSS 버튼 효과 **/
 .wrap {
     text-align: center;
+    width: 123px;
 }
 
 input.button {
 	width: 100%;
-	height: 50px;
     -webkit-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
     -moz-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
     -ms-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
