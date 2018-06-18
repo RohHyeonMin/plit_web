@@ -1,5 +1,8 @@
 eclipse.preferences.version=1
+encoding//WebContent/board/readBoard_CSS.css=UTF-8
 encoding//WebContent/mainPage/mainPage_JS.js=UTF-8
 encoding//WebContent/myPage/myPage_css.css=UTF-8
 encoding//src/controller/Controller.java=UTF-8
+encoding//src/controller/DataController.java=UTF-8
+encoding//src/login/LoginUserAction.java=UTF-8
 encoding//src/myPage/action/MyPageAction.java=UTF-8

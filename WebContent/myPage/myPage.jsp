@@ -24,7 +24,10 @@
     
 </head>
 <body>
-<div id="toolbar"> <input type="hidden" value="<%= id %>"> </div>
+<div id="toolbar">
+	<input type="hidden" value="<%= id %>"  id="userid"> 
+	<input type="hidden" value="<%= user_photo %>" id="usericon"> 
+</div>
 <div id="wrapper">
 <input id="image_url" type="hidden" value="<%= user_photo %>"> 
 

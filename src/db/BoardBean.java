@@ -12,6 +12,8 @@ public class BoardBean {
 	private double longitude;// °æµµ
 	private String id;
 	
+	private String userIcon;
+	
 	public int getBoardNum()
 	{
 		return boardNum;
@@ -90,5 +92,14 @@ public class BoardBean {
 	public void setId( String id )
 	{
 		this.id = id;
+	}
+	
+	public String getUserId()
+	{
+		return userIcon;
+	}
+	public void setUserId( String icon )
+	{
+		this.userIcon = icon;
 	}
 }

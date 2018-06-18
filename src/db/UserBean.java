@@ -9,7 +9,7 @@ public class UserBean {
 	private String pw;
     private String birth;
     private String message;
-    
+    private String userPhoto;
     public String getId() {
 		return id;
 	}
@@ -33,5 +33,11 @@ public class UserBean {
 	}
 	public void setMessage( String message ) {
 		this.message = message;
+	}
+	public String getuserPhoto() {
+		return userPhoto;
+	}
+	public void setuserPhoto( String photo ) {
+		this.userPhoto = photo;
 	}
 }

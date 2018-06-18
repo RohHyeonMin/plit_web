@@ -9,6 +9,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
 
@@ -22,22 +23,22 @@ implements javax.servlet.Servlet {
 	
 	public static final String m_serverIP = "http://192.168.0.11:8080";
 	
-// doGet, doPost 둘다 실행해도 doProcess 실행됨
+// doGet, doPost �몮�떎 �떎�뻾�빐�룄 doProcess �떎�뻾�맖
 protected void doProcess( HttpServletRequest request, HttpServletResponse response ) 
 		throws ServletException, IOException {
 	
-	request.setCharacterEncoding("UTF-8"); // 받는거 UTF-8 인코딩
-	response.setCharacterEncoding("UTF-8");; // 보낼 때도 UTF-8로 인코딩
+	request.setCharacterEncoding("UTF-8"); // 諛쏅뒗嫄� UTF-8 �씤肄붾뵫
+	response.setCharacterEncoding("UTF-8");; // 蹂대궪 �븣�룄 UTF-8濡� �씤肄붾뵫
 	
 	String RequestURI = request.getRequestURI();  // /plit/.data
-	String contextPath = request.getContextPath();// /plit ( 현재 톰캣 폴더 )
+	String contextPath = request.getContextPath();// /plit ( �쁽�옱 �넱罹� �뤃�뜑 )
 	
 	String dataType = request.getParameter("type");
-	DataDao dataDao = new DataDao(); // 디비에 값을 넣거나 빼기위해서 Dao 생성
+	DataDao dataDao = new DataDao(); // �뵒鍮꾩뿉 媛믪쓣 �꽔嫄곕굹 鍮쇨린�쐞�빐�꽌 Dao �깮�꽦
 	
 	if( dataType != null )
 	{
-		if( dataType.equals("getFriendList") ) // 친구목록 불러오기
+		if( dataType.equals("getFriendList") ) // 移쒓뎄紐⑸줉 遺덈윭�삤湲�
 		{
 			String id = request.getParameter("id");
 			JSONArray json = dataDao.getFriendList( id, 0, 10 );
@@ -45,85 +46,85 @@ protected void doProcess( HttpServletRequest request, HttpServletResponse respon
 			if( json != null )
 				response.getWriter().println( json );
 		}
-		else if( dataType.equals("setStateMessage") ) // 친구목록 불러오기
+		else if( dataType.equals("setStateMessage") ) // 移쒓뎄紐⑸줉 遺덈윭�삤湲�
 		{
 			String id = request.getParameter("id");
 			String message = request.getParameter("message");
-			int result = dataDao.setStateMessage( id, message ); // 0이면 false, 1이면 true
+			int result = dataDao.setStateMessage( id, message ); // 0�씠硫� false, 1�씠硫� true
 			
-			response.getWriter().println( result ); // "true", "false" 둘중 하나를 보냄
+			response.getWriter().println( result ); // "true", "false" �몮以� �븯�굹瑜� 蹂대깂
 		}
 	}
-	else // null 이라는건 MultiRequest 타입으로 보냈다는거임 그말은 즉슨 image 관련 처리다.
+	else // null �씠�씪�뒗嫄� MultiRequest ���엯�쑝濡� 蹂대깉�떎�뒗嫄곗엫 洹몃쭚�� 利됱뒯 image 愿��젴 泥섎━�떎.
 	{
 		
-		ServletContext context = request.getServletContext(); // 현재 서블릿 객체
-		String savePath = context.getRealPath("PlitImage"); // 현재 톰캣 폴더에 images 경로를 받아옴
-		int size = 50 * 1024 * 1024; // 다운 받을 최대 용량 50Mb 까지 가능
+		ServletContext context = request.getServletContext(); // �쁽�옱 �꽌釉붾┸ 媛앹껜
+		String savePath = context.getRealPath("PlitImage"); // �쁽�옱 �넱罹� �뤃�뜑�뿉 images 寃쎈줈瑜� 諛쏆븘�샂
+		int size = 50 * 1024 * 1024; // �떎�슫 諛쏆쓣 理쒕� �슜�웾 50Mb 源뚯� 媛��뒫
 		
-		File saveDir = new File(savePath); // 디렉토리가 없을 경우 생성
+		File saveDir = new File(savePath); // �뵒�젆�넗由ш� �뾾�쓣 寃쎌슦 �깮�꽦
 		if(!saveDir.exists()) 
 		{
 			saveDir.mkdirs(); 
 		}
 		
-	    // MultipartRequest(request, 저장경로[, 최대허용크기, 인코딩케릭터셋, 동일한 파일명 보호 여부])
+	    // MultipartRequest(request, ���옣寃쎈줈[, 理쒕��뿀�슜�겕湲�, �씤肄붾뵫耳�由��꽣�뀑, �룞�씪�븳 �뙆�씪紐� 蹂댄샇 �뿬遺�])
 		MultipartRequest multiRequest = new MultipartRequest( request, savePath, size, "utf-8", new DefaultFileRenamePolicy() );
-		dataType = multiRequest.getParameter("type"); // multiRequest안에 "type" 값을 가져온다.
+		dataType = multiRequest.getParameter("type"); // multiRequest�븞�뿉 "type" 媛믪쓣 媛��졇�삩�떎.
 
-		if( dataType.equals("setProfileImage") ) // 프로필이미지 변경하기
+		if( dataType.equals("setProfileImage") ) // �봽濡쒗븘�씠誘몄� 蹂�寃쏀븯湲�
 		{
-			String id = multiRequest.getParameter("id"); // "id" 값 가져오기
+			String id = multiRequest.getParameter("id"); // "id" 媛� 媛��졇�삤湲�
 			
-			String fileName = multiRequest.getFile("profileImage").getName(); // 얻어온 파일 명
-			String extName = fileName.substring(fileName.length()-4, fileName.length()); // 확장자명
+			String fileName = multiRequest.getFile("profileImage").getName(); // �뼸�뼱�삩 �뙆�씪 紐�
+			String extName = fileName.substring(fileName.length()-4, fileName.length()); // �솗�옣�옄紐�
 
-			File isFile = new File( savePath + "\\" + id + "_profileImage" + extName ); // 이미 사용자의 이미지가 존재한다면 삭제해야한다
+			File isFile = new File( savePath + "\\" + id + "_profileImage" + extName ); // �씠誘� �궗�슜�옄�쓽 �씠誘몄�媛� 議댁옱�븳�떎硫� �궘�젣�빐�빞�븳�떎
 			if( isFile.exists() )
 			{
 				isFile.delete();
 			}
 			
-			// 삭제하거나 안하거나 만들어진 파일을 사용자id_profileImage 라는 이름으로 바꾼다.
+			// �궘�젣�븯嫄곕굹 �븞�븯嫄곕굹 留뚮뱾�뼱吏� �뙆�씪�쓣 �궗�슜�옄id_profileImage �씪�뒗 �씠由꾩쑝濡� 諛붽씔�떎.
 			String srcFilePath = savePath + "\\" + fileName; 
 			File srcFile = new File( srcFilePath );
 			String renameFilePath = savePath + "\\" + id + "_profileImage" + extName;
 			File renameFile = new File( renameFilePath );
 
-			srcFile.renameTo( renameFile ); // 이름 바꾸기
+			srcFile.renameTo( renameFile ); // �씠由� 諛붽씀湲�
 			
 			String profileImageName = id + "_profileImage" + extName;
 			
-			/** DB에 넣기 **/
-			int result = dataDao.setProfileImage( profileImageName, id ); // 0이면 false, 1이면 true
+			/** DB�뿉 �꽔湲� **/
+			int result = dataDao.setProfileImage( profileImageName, id ); // 0�씠硫� false, 1�씠硫� true
 			
-			response.getWriter().println( result ); // "true", "false" 둘중 하나를 보냄
+			response.getWriter().println( result ); // "true", "false" �몮以� �븯�굹瑜� 蹂대깂
 		}
-		else if( dataType.equals("setBoard") ) // 게시글 작성
+		else if( dataType.equals("setBoard") ) // 寃뚯떆湲� �옉�꽦
 		{
-			String id = multiRequest.getParameter("id"); // "id" 값 가져오기
-			String locationText = multiRequest.getParameter("locationText"); // "id" 값 가져오기
-			String textArea = multiRequest.getParameter("textArea"); // "id" 값 가져오기
+			String id = multiRequest.getParameter("id"); // "id" 媛� 媛��졇�삤湲�
+			String locationText = multiRequest.getParameter("locationText"); // "id" 媛� 媛��졇�삤湲�
+			String textArea = multiRequest.getParameter("textArea"); // "id" 媛� 媛��졇�삤湲�
 			
-			Enumeration Names = multiRequest.getFileNames(); // 얻어온 파일 명
+			Enumeration Names = multiRequest.getFileNames(); // �뼸�뼱�삩 �뙆�씪 紐�
 			ArrayList<String> fileNames = new ArrayList<>();
 			if( Names != null )
 			{
-				while( Names.hasMoreElements() ) // 등록한 사진만큼 이름 가져오기
+				while( Names.hasMoreElements() ) // �벑濡앺븳 �궗吏꾨쭔�겮 �씠由� 媛��졇�삤湲�
 				{
 					String strName = Names.nextElement().toString();
 					String fileName = multiRequest.getFilesystemName(strName);
-					fileNames.add( fileName ); // 파일명 + 확장자명 추가
+					fileNames.add( fileName ); // �뙆�씪紐� + �솗�옣�옄紐� 異붽�
 				}
 			}
 			else
 			{
 				fileNames.add("");
 			}
-			/** DB에 넣기 **/
-			int result = dataDao.setBoard( textArea, id, "", 0, 0, fileNames ); // 0이면 false, 1이면 true
+			/** DB�뿉 �꽔湲� **/
+			int result = dataDao.setBoard( textArea, id, "", 0, 0, fileNames ); // 0�씠硫� false, 1�씠硫� true
 			
-			response.getWriter().println( result ); // "true", "false" 둘중 하나를 보냄
+			response.getWriter().println( result ); // "true", "false" �몮以� �븯�굹瑜� 蹂대깂
 		}
 	}
 }

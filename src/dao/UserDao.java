@@ -135,8 +135,8 @@ public class UserDao
 			UserBean user = new UserBean();
 			user.setId(rs.getString("id"));
 			user.setPw(rs.getString("passwd"));
-			user.setBirth(rs.getString("date_birth"));		
-
+			user.setBirth(rs.getString("date_birth"));	
+			user.setuserPhoto(rs.getString("user_photo"));
 			return user;
 		}
 		catch(Exception ex)

@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import dao.BoardDao;
+import db.BoardBean;
 
 // 게시글 가져오기
 public class BoardListAction implements Action{
@@ -29,15 +30,31 @@ public class BoardListAction implements Action{
 	   		}
 	   		
 			BoardDao boardDao = new BoardDao();
-			ArrayList boardlist  =new ArrayList();
+			ArrayList<BoardBean> boardlist  =new ArrayList();
+			ArrayList<String> imglist = new ArrayList<>();
 			
 		  	int page = 1;
 			int limit = 10; // 한번에 불러올 글 갯수
 			
 			boardlist = boardDao.getBoardList(page, limit); //리스트를 받아 옴
 	   				
+			for( int i = 0; i < boardlist.size(); i++ )
+			{
+				String writer = boardlist.get(i).getId();
+				if( writer == null )
+				{
+					imglist.add("icon.jpg");
+				}
+				else
+				{
+					imglist.add(boardDao.getWriterImg(writer));
+				}
+				
+			}
+			
 	   		request.setAttribute("page", page); // 현재 페이지
 			request.setAttribute("boardlist", boardlist); // return ArrayList;
+			request.setAttribute("imglist", imglist);
 			
 		   	forward.setRedirect(false);
 	   		forward.setPath("/mainPage/mainPage.jsp");

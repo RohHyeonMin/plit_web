@@ -12,9 +12,9 @@
 	<script>
 		$(document).ready(function(){
 			if( <%=request.getAttribute("join") != null%>)
-				{
+			{
 				alert('회원가입 성공')
-				}
+			}
 			$('#signIn').click(function(){
 				$('form').attr("action", "LoginUserAction.me");
 			});

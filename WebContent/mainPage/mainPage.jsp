@@ -1,15 +1,19 @@
+<%@page import="db.UserBean"%>
 <%@page import="db.BoardBean"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <%
+	String imageServerPath = "http://127.0.0.1:8080/plit/PlitImage/";
 	String id = null;
+	UserBean user = (UserBean)session.getAttribute("user");
 	if(session.getAttribute("id")!=null){
 		// 현재 사용자 id 받아오기
 		id = (String)session.getAttribute("id");
 	}
 	ArrayList boardList = (ArrayList) request.getAttribute("boardlist");
+	ArrayList<String> imgs = (ArrayList) request.getAttribute("imglist");
 %>
 
 <html>
@@ -25,7 +29,10 @@
 
 <body>
 	 
-	<div id="toolbar"> <input type="hidden" value="<%= id %>"> </div>
+	<div id="toolbar"> 
+		<input type="hidden" value="<%= id %>"  id="userid"> 
+		<input type="hidden" value="<%= imageServerPath + user.getuserPhoto() %>" id="usericon"> 
+	</div>
 	<div id="wrapper">
 	<div id="map"> </div>
 	
@@ -45,8 +52,8 @@
 			<tr>
 				<td class="user">
 					<div>
-						<img src="mainPage/icon.jpg" class="member_icon">
-						<div class="id"> <%= bl.getId() %> </div>
+						<img src=<%= imageServerPath + imgs.get(i) %> class="member_icon">
+					<div class="id"> <%= bl.getId() %> </div>
 					</div>				
 				</td>
 				<td colspan="2" id="text">

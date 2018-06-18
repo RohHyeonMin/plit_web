@@ -2,7 +2,8 @@
 $.menu = function(){
 
 	var toolbar = $("#toolbar");
-	var id = $("#toolbar > input").attr("value");
+	var id = $("#userid").attr("value");
+	var photo = $("#usericon").attr("value");
 	// toolbar 태그 추가	
 	toolbar.append("<img src='mainPage/write.png' class='menu' id='write'>");
 	toolbar.append("<img src='mainPage/setting.png' class='menu'>");	

@@ -45,7 +45,7 @@
 	box-shadow: 0px 0px 15px 3px rgb(221, 221, 221);
 	margin-top: 10px;
 }
-/* 내용 */
+/* �궡�슜 */
 #boardBox{
 	width: 40%;
 	height: 465px;
@@ -69,6 +69,9 @@
 	margin-top: 5px;
 	float: right;
 }
+/********************************************/
+/********************************************/
+/********************************************/
 #reply{
 	width: 30%;
 	height: 465px;
@@ -78,6 +81,28 @@
 	margin-left: 30px;
 	margin-top: 30px;
 	float: left;
+}
+
+#reply > table{
+	width: 96%;
+	margin-right: 2%;
+	margin-left: 2%;
+	margin-top: 5px;
+}
+.replyIcon{
+	width: 60px;
+	height: 60px;
+}
+.replyId{
+	width: 70px;
+	padding-left: 6px;
+}
+.replyHit{
+	text-align: right;
+	width: 40px;
+}
+.replyDate{
+	text-align: right;
 }
 /********************************************/
 /********************************************/
@@ -182,7 +207,7 @@ body{
 }
 
 
-/* 반응형 */
+/* 諛섏쓳�삎 */
 @media ( max-width: 600px ) {
 	.searchBox {
 	  width: 15%;

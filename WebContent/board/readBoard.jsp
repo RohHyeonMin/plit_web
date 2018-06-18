@@ -39,7 +39,19 @@
 			</div>
 		</div>
 	
-		<div id="reply"></div>
+		<div id="reply">
+		<table>
+			<tr>
+				<td width="70px"> <img src="board/userIcon.jpg" class="replyIcon"/> </td>
+				<td colspan="2" class="replyContent"> 내용 </td>
+			</tr>
+			<tr>
+				<td class="replyId"> user id </td>
+				<td class="replyDate"> YYYY-MM-DD </td>
+				<td class="replyHit"> <img src="board/heart.png" width="24px" height="24px"> </td>
+			</tr>
+		</table>
+	</div>
 	</div>
 </body>
 </html>

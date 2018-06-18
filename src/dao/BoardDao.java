@@ -56,7 +56,7 @@ public class BoardDao {
 	*/
 	
 	//글 목록 가져오기
-	public ArrayList getBoardList( int page, int limit )
+	public ArrayList<BoardBean> getBoardList( int page, int limit )
 	{
 		String board_list_sql = "select * from board";
 				//+ "where rnum>=? and rnum<=?";
@@ -132,6 +132,42 @@ public class BoardDao {
 		}
 		return null;
 	}
+	
+	// 글쓴이의 프로필 사진 가져오기
+	public String getWriterImg( String id ) throws SQLException
+	{
+		con = ds.getConnection();
+		String board_list_sql = "select user_photo from user_info where id = ?";		
+		String img = null;
+				
+		try{
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(board_list_sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			if(rs.next()){
+				if( rs.getString("user_photo") == null)
+				{
+					img = "icon.jpg";
+				}
+				else
+				{
+					img = rs.getString("user_photo");
+				}
+			}
+			
+			
+
+			return img;
+		}catch(Exception ex){
+			System.out.println("getBoardList 에러 : " + ex);
+		}finally{
+			close(pstmt);
+			close(rs);
+			close(con);
+		}
+		return null;
+	}	
 	/*
 	//글 등록.
 	public boolean boardInsert(BoardBean board){
