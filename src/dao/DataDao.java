@@ -17,10 +17,10 @@ import com.oreilly.servlet.MultipartRequest;
 
 public class DataDao {
 	
-	Connection con;
+	public Connection con;
 	PreparedStatement pstmt; // �ѹ��� �������� �м�, ������ �� ĳ�ÿ� ��� ����
 	ResultSet rs;  // select���� ���� �� executeQuery() �޼��带 ����ϸ�, ���� ����� java.sql.ResultSet������ ����
-	DataSource ds; // Connection pool ����
+	public DataSource ds; // Connection pool ����
 	
 	public DataDao() { // 
 		try{

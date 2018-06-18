@@ -18,7 +18,7 @@
 		String time = board.getDateBoard().substring(0, 10);
 		String id = (String)session.getAttribute("id");
 	%>
-	<div id="toolbar"> <input type="hidden" value="<%= id %>"> </div>
+	<div id="toolbar"> <input type="hidden" value="<%= id %>" id="userid"> </div>
 
 	<div id="box">
 		<div id="right">

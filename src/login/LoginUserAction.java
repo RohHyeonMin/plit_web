@@ -1,10 +1,7 @@
 package login;
 
-import static db.DBConnection.getConnection;
-
 import java.io.PrintWriter;
 import java.sql.Connection;
-import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,8 +9,9 @@ import javax.servlet.http.HttpSession;
 
 import action.Action;
 import action.ActionForward;
-import db.UserBean;
+import dao.DataDao;
 import dao.UserDao;
+import db.UserBean;
 
 
 public class LoginUserAction implements Action
@@ -26,7 +24,8 @@ public class LoginUserAction implements Action
 			request.setCharacterEncoding("UTF-8");
 			HttpSession session = request.getSession();
 			ActionForward forward = new ActionForward();
-			Connection con = getConnection();
+			DataDao dao = new DataDao();
+			Connection con = dao.ds.getConnection();;
 			
 			UserDao userDao = new UserDao(con);
 			UserBean user = new UserBean();   		

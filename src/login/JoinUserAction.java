@@ -1,9 +1,8 @@
 package login;
 
-import static db.DBConnection.getConnection;
-
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,17 +11,25 @@ import javax.servlet.http.HttpServletResponse;
 import action.Action;
 import action.ActionForward;
 import db.UserBean;
+import dao.DataDao;
 import dao.UserDao;
 
-/* È¸¿ø°¡ÀÔ  */
+/* È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  */
 public class JoinUserAction implements Action
 {
 	public ActionForward execute(HttpServletRequest request,HttpServletResponse response) 
 	{
 	 	
 		ActionForward forward = new ActionForward();
-		Connection con = getConnection();
-		boolean result = false; // È¸¿ø°¡ÀÔ ¼º°ø ¿©ºÎ
+		DataDao dao = new DataDao();
+		Connection con = null;
+		try {
+			con = dao.ds.getConnection();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		};
+		boolean result = false; // È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		
 		UserDao userDao = new UserDao(con);
 		UserBean user = new UserBean();
@@ -31,7 +38,7 @@ public class JoinUserAction implements Action
 		{
 			request.setCharacterEncoding("euc-kr");
 			
-			// SignUp.jspÀÇ formÅÂ±×ÀÇ µ¥ÀÌÅÍ °¡Á®¿Í ÀúÀå
+			// SignUp.jspï¿½ï¿½ formï¿½Â±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			user.setId(request.getParameter("id"));
 			user.setPw(request.getParameter("pw"));
 			user.setBirth(request.getParameter("birth"));   
@@ -39,18 +46,18 @@ public class JoinUserAction implements Action
 			response.setCharacterEncoding("UTF-8"); 
 			response.setContentType("text/html; charset=UTF-8");
 			
-			// È¸¿ø Á¤º¸ ¸®½ºÆ®
+			// È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
 			ArrayList<UserBean> userList = userDao.getUserList();
 			for( int i = 0; i < userList.size(); i++ )
 			{
-				// ¾ÆÀÌµð Áßº¹ °Ë»ç
+				// ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ßºï¿½ ï¿½Ë»ï¿½
 				if( user.getId().equals( userList.get(i).getId() ) )
 				{
-					System.out.println("Áßº¹ ¾ÆÀÌµð ¹ß»ý");
-					// TODO »ç¿ëÀÚ ·Î±×ÀÎ ½ÇÆÐ ( °æ°íÃ¢ )
+					System.out.println("ï¿½ßºï¿½ ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ß»ï¿½");
+					// TODO ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ( ï¿½ï¿½ï¿½Ã¢ )
 					PrintWriter out = response.getWriter();
 					out.println("<script>");
-					out.println("alert('ÀÌ¹Ì Á¸ÀçÇÏ´Â ¾ÆÀÌµðÀÔ´Ï´Ù.');");
+					out.println("alert('ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ï¿½Ô´Ï´ï¿½.');");
 					out.println("history.back();");
 					out.println("</script>");
 					out.close();
@@ -58,27 +65,27 @@ public class JoinUserAction implements Action
 				}
 			}
 			
-			con = getConnection();
+			con = dao.con;
 			userDao = new UserDao(con);
-			// »ç¿ë °¡´ÉÇÑ ¾ÆÀÌµð INSERT
+			// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ INSERT
 			result = userDao.joinUser(user);
 			   		  		
 			if( result == false)
 			{
-				System.out.println("È¸¿ø°¡ÀÔ ½ÇÆÐ");
-				// TODO »ç¿ëÀÚ ·Î±×ÀÎ ½ÇÆÐ ( °æ°íÃ¢ )
+				System.out.println("È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
+				// TODO ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ( ï¿½ï¿½ï¿½Ã¢ )
 				PrintWriter out = response.getWriter();
 				out.println("<script>");
-				out.println("alert('È¸¿ø°¡ÀÔ ½ÇÆÐ.');");
+				out.println("alert('È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.');");
 				out.println("history.back();");
 				out.println("</script>");
 				out.close();
 				return null;
 			}
 			
-			//È¸¿ø°¡ÀÔ ¼º°ø.
-			System.out.println("È¸¿ø°¡ÀÔ ¼º°ø");
-			System.out.println("È¸¿ø°¡ÀÔÇÑ ¾ÆÀÌµð : " + user.getId() );
+			//È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
+			System.out.println("È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
+			System.out.println("È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ : " + user.getId() );
 
 			request.setAttribute("join", "success");
 			forward.setRedirect(false);

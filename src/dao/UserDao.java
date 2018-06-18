@@ -1,9 +1,11 @@
 package dao;
 
-import static db.DBConnection.*;
-
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+
 import javax.sql.DataSource;
 
 import db.UserBean;
@@ -11,8 +13,8 @@ import db.UserBean;
 public class UserDao 
 {
 	Connection con;
-	PreparedStatement pstmt; // ÇÑ¹øÀÇ Äõ¸®¹®Àå ºÐ¼®, ÄÄÆÄÀÏ ÈÄ Ä³½Ã¿¡ ´ã¾Æ Àç»ç¿ë
-	ResultSet rs; // selectÄõ¸® ½ÇÇà ½Ã executeQuery() ¸Þ¼­µå¸¦ »ç¿ëÇÏ¸ç, ½ÇÇà °á°ú·Î java.sql.ResultSetÇüÀ¸·Î ¸®ÅÏ
+	PreparedStatement pstmt; // ï¿½Ñ¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð¼ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Ä³ï¿½Ã¿ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	ResultSet rs; // selectï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ executeQuery() ï¿½Þ¼ï¿½ï¿½å¸¦ ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ java.sql.ResultSetï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	DataSource ds;
 	
 	public UserDao(Connection con) 
@@ -23,22 +25,22 @@ public class UserDao
 		this.con = con;
 	}
 		
-	/* »ç¿ëÀÚ ·Î±×ÀÎ Á¤º¸ È®ÀÎ */
+	/* ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ */
 	public UserBean getUserLogin(String id, String pw) 
 	{
 		// TODO Auto-generated method stub	
 		UserBean user = null;
 			
 		try{
-			String sql="select * from user_info where id=? and passwd=?"; // »ç¿ëÀÚ Á¤º¸ Á¶È¸
-			pstmt = con.prepareStatement(sql); // Äõ¸®¹® ÀúÀå
-			pstmt.setString(1, id); // Ã¹¹øÂ° ?ÀÇ °ª ÁöÁ¤
-			pstmt.setString(2, pw); // µÎ¹øÂ° ?ÀÇ °ª ÁöÁ¤
+			String sql="select * from user_info where id=? and passwd=?"; // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸
+			pstmt = con.prepareStatement(sql); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+			pstmt.setString(1, id); // Ã¹ï¿½ï¿½Â° ?ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+			pstmt.setString(2, pw); // ï¿½Î¹ï¿½Â° ?ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			rs = pstmt.executeQuery();
 			
 			if(rs.next())
 			{
-				// TODO Á¶°Ç¿¡ ÀÏÄ¡ÇÏ´Â »ç¿ëÀÚ Á¤º¸¸¦ User °´Ã¼¿¡ ÀúÀå
+				// TODO ï¿½ï¿½ï¿½Ç¿ï¿½ ï¿½ï¿½Ä¡ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ User ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				user = new UserBean();
 				user.setId(rs.getString("id"));
 				user.setPw(rs.getString("passwd"));
@@ -51,13 +53,20 @@ public class UserDao
 		}
 		finally
 		{
-			close(pstmt);
-			close(rs);
+			try {
+				if(pstmt !=null)
+					pstmt.close();
+				if(rs !=null)
+					rs.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}	
 		return user;
 	}
 	
-	/* »ç¿ëÀÚ Á¤º¸ ÀúÀå : È¸¿ø °¡ÀÔ ( INSERT ) */
+	/* ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ : È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ( INSERT ) */
 	public boolean joinUser(UserBean user) throws SQLException
 	{
 		// ( ?, ?, ? )  id, passwd, date_birth
@@ -77,16 +86,24 @@ public class UserDao
 		}
 		catch(Exception ex)
 		{
-			System.out.println("joinUser ¿¡·¯: " + ex);			
+			System.out.println("joinUser ï¿½ï¿½ï¿½ï¿½: " + ex);			
 		}finally{
-			close(pstmt);
-			close(rs);
-			close(con);
+			try {
+				if(pstmt !=null)
+					pstmt.close();
+				if(rs !=null)
+					rs.close();
+				if(con !=null)
+					con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}	
 		return false;
 	}
 	
-	/* ÀüÃ¼ »ç¿ëÀÚ Á¤º¸ Á¶È¸ */
+	/* ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸ */
 	public ArrayList getUserList() throws SQLException
 	{
 		String sql = "SELECT * FROM user_info";
@@ -109,20 +126,28 @@ public class UserDao
 		}
 		catch(Exception ex)
 		{
-			System.out.println("getUserList ¿¡·¯: " + ex);			
+			System.out.println("getUserList ï¿½ï¿½ï¿½ï¿½: " + ex);			
 		}
 		finally{
-			close(pstmt);
-			close(rs);
-			close(con);
+			try {
+				if(pstmt !=null)
+					pstmt.close();
+				if(rs !=null)
+					rs.close();
+				if(con !=null)
+					con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
 	
-	/* »ç¿ëÀÚ Á¤º¸ Á¶È¸ */
+	/* ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸ */
 	public UserBean getUserInfo( String id ) throws SQLException
 	{
-		// ³Ñ°Ü¹ÞÀº ÇØ´ç ¾ÆÀÌµðÀÇ »ç¿ëÀÚ Á¤º¸ Á¶È¸
+		// ï¿½Ñ°Ü¹ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸
 		String sql = "SELECT * FROM user_info WHERE id = ?";
 		
 		try{
@@ -141,18 +166,26 @@ public class UserDao
 		}
 		catch(Exception ex)
 		{
-			System.out.println("getUserInfo ¿¡·¯: " + ex);			
+			System.out.println("getUserInfo ï¿½ï¿½ï¿½ï¿½: " + ex);			
 		}
 		finally
 		{
-			close(pstmt);
-			close(rs);
-			close(con);
+			try {
+				if(pstmt !=null)
+					pstmt.close();
+				if(rs !=null)
+					rs.close();
+				if(con !=null)
+					con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}	
 		return null;
 	}
 	
-	/* »ç¿ëÀÚ Á¤º¸ »èÁ¦ ( È¸¿ø Å»Åð ) */
+	/* ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ( È¸ï¿½ï¿½ Å»ï¿½ï¿½ ) */
 	public boolean deleteUserInfo(String id) throws SQLException
 	{
 		String sql="DELETE FROM user_info WHERE id= ? ";
@@ -174,7 +207,7 @@ public class UserDao
 			isSuccess=true;
 		}catch(Exception ex)
 		{
-			System.out.println("deleteMember ¿¡·¯: " + ex);	
+			System.out.println("deleteMember ï¿½ï¿½ï¿½ï¿½: " + ex);	
 		}
 		finally
 		{
@@ -188,9 +221,17 @@ public class UserDao
 				}
 			}
 			catch(Exception e){};
-			close(pstmt);
-			close(rs);
-			close(con);
+			try {
+				if(pstmt !=null)
+					pstmt.close();
+				if(rs !=null)
+					rs.close();
+				if(con !=null)
+					con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 		return result;
