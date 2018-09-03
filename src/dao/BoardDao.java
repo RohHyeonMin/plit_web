@@ -15,6 +15,7 @@ public class BoardDao {
 	ResultSet rs;  // select���� ���� �� executeQuery() �޼��带 ����ϸ�, ���� ����� java.sql.ResultSet������ ����
 	
 	public BoardDao() {
+		
 	}
 	
 	/*

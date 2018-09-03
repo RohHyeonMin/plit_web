@@ -20,7 +20,7 @@ $(document).ready(function(){
         function fileLoad( file )
         {
            var fileReader = new FileReader();
-           fileReader.readAsDataURL( file ); // 한개 선택할꺼니 0번째 url로 
+           fileReader.readAsDataURL( file ); // 
 
             // 사용자 선택한 이미지 로드 시
             fileReader.onload = function ()

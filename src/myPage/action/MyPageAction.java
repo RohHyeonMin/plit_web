@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.naming.Context;
-import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,6 +13,7 @@ import javax.sql.DataSource;
 
 import action.Action;
 import action.ActionForward;
+import dao.DataDao;
 
 /*
  *  留덉씠�럹�씠吏� 泥섏쓬 �쓣�슱�븣 �븘�슂�븳 �봽濡쒗븘�궗吏�, �긽�깭硫붿꽭吏� �벑�쓣 �젙�쟻 濡쒕뵫
@@ -28,16 +28,8 @@ public class MyPageAction implements Action
 	
 	public MyPageAction()
 	{
-		Context init;
-		try
-		{
-			init = new InitialContext();
-			ds = (DataSource) init.lookup("java:comp/env/jdbc/MysqlDB");	
-		} 
-		catch (NamingException e)
-		{
-			e.printStackTrace();
-		}
+		DataDao dao = new DataDao();
+		ds = dao.ds;
 	}
 	
 	@Override

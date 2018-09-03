@@ -3,7 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <%
-	String imageServerPath = "http://127.0.0.1:8080/plit/PlitImage/";
+	String imageServerPath = "http://127.0.0.1:8080/PlitImage/";
 
 	String id = null;
 	String user_photo = null;
